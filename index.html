@@ -90,7 +90,6 @@
             cursor: pointer; width: 100%; font-size: 15px;
         }
 
-        /* DISEÑO FORMAL PARA OTROS TRÁMITES */
         .banner-personalizado {
             background: linear-gradient(rgba(0,51,102,0.9), rgba(0,51,102,0.9)), url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80');
             background-size: cover; background-position: center;
@@ -193,11 +192,11 @@
 
     <h2>📺 Cuentas de Streaming</h2>
     <div class="grid-servicios">
-        <div class="card streaming"><h3>Netflix</h3><div class="precio-txt">$40.00</div><button class="btn-ws" onclick="abrirModal('stream_netflix')">SOLICITAR CUENTA</button></div>
-        <div class="card streaming"><h3>Disney+ / Star+</h3><div class="precio-txt">$35.00</div><button class="btn-ws" onclick="abrirModal('stream_disney')">SOLICITAR CUENTA</button></div>
-        <div class="card streaming"><h3>HBO Max</h3><div class="precio-txt">$30.00</div><button class="btn-ws" onclick="abrirModal('stream_hbo')">SOLICITAR CUENTA</button></div>
-        <div class="card streaming"><h3>Amazon Prime</h3><div class="precio-txt">$30.00</div><button class="btn-ws" onclick="abrirModal('stream_prime')">SOLICITAR CUENTA</button></div>
-        <div class="card streaming"><h3>VIX Premium</h3><div class="precio-txt">$30.00</div><button class="btn-ws" onclick="abrirModal('stream_vix')">SOLICITAR CUENTA</button></div>
+        <div class="card streaming"><h3>Netflix</h3><div class="precio-txt">$80.00</div><button class="btn-ws" onclick="abrirModal('stream_netflix')">SOLICITAR CUENTA</button></div>
+        <div class="card streaming"><h3>Disney+ / Star+</h3><div class="precio-txt">$50.00</div><button class="btn-ws" onclick="abrirModal('stream_disney')">SOLICITAR CUENTA</button></div>
+        <div class="card streaming"><h3>HBO Max</h3><div class="precio-txt">$50.00</div><button class="btn-ws" onclick="abrirModal('stream_hbo')">SOLICITAR CUENTA</button></div>
+        <div class="card streaming"><h3>Amazon Prime</h3><div class="precio-txt">$50.00</div><button class="btn-ws" onclick="abrirModal('stream_prime')">SOLICITAR CUENTA</button></div>
+        <div class="card streaming"><h3>VIX Premium</h3><div class="precio-txt">$50.00</div><button class="btn-ws" onclick="abrirModal('stream_vix')">SOLICITAR CUENTA</button></div>
     </div>
 
     <div class="banner-personalizado">
@@ -257,17 +256,18 @@
             info.style.display = "block";
             cont.innerHTML = `<label>RFC:</label><input type="text" id="b_rfc"><label>CURP:</label><input type="text" id="b_curp"><label>Tarjeta de Crédito (Opcional):</label><input type="text" id="b_tarjeta" placeholder="Número"><label>Límite de Crédito:</label><input type="text" id="b_limite" placeholder="Ej. $5000">`;
         } else if(tipo === 'pasaporte') {
+            cont.innerHTML = `<label>CURP:</label><input type="text" id="p_curp"><label>Estado para la cita:</label><input type="text" id="p_estado"><label>Día de preferencia:</label><input type="date" id="p_dia"><label>Hora de preferencia:</label><input type="time" id="p_hora"><label>Vigencia del Pasaporte:</label><select id="p_vigencia"><option value="3 años">3 años</option><option value="6 años">6 años</option><option value="10 años">10 años</option></select>`;
+        } else if(tipo === 'permiso') {
+            info.innerHTML = "📸 <strong>REQUISITO:</strong> Debe adjuntar foto de la <strong>INE o la FACTURA</strong> por WhatsApp al finalizar.";
+            info.style.display = "block";
             cont.innerHTML = `
-                <label>CURP:</label><input type="text" id="p_curp">
-                <label>Estado para la cita:</label><input type="text" id="p_estado">
-                <label>Día de preferencia:</label><input type="date" id="p_dia">
-                <label>Hora de preferencia:</label><input type="time" id="p_hora">
-                <label>Vigencia del Pasaporte:</label>
-                <select id="p_vigencia">
-                    <option value="3 años">3 años</option>
-                    <option value="6 años">6 años</option>
-                    <option value="10 años">10 años</option>
-                </select>`;
+                <label>Marca:</label><input type="text" id="perm_marca">
+                <label>Modelo:</label><input type="text" id="perm_modelo">
+                <label>Línea:</label><input type="text" id="perm_linea">
+                <label>Número de Serie:</label><input type="text" id="perm_serie">
+                <label>Número de Motor:</label><input type="text" id="perm_motor">
+                <label>Nombre del Propietario:</label><input type="text" id="perm_propietario">
+                <label>Dirección del Propietario:</label><textarea id="perm_direccion" rows="2"></textarea>`;
         } else if(tipo === 'otro_tramite') {
             cont.innerHTML = '<label>Describa el servicio requerido:</label><textarea id="d_otro" rows="3"></textarea><label>Nombre completo:</label><input type="text" id="d_nombre_otro">';
         } else if(tipo.startsWith('stream_')) {
@@ -280,9 +280,6 @@
             cont.innerHTML = '<label>CURP:</label><input type="text" id="d_curp"><label>NSS:</label><input type="text" id="d_nss">';
         } else if(tipo === 'cfe') {
             cont.innerHTML = '<label>Número de Servicio:</label><input type="text" id="d_servicio">';
-        } else if(tipo === 'permiso') {
-            info.innerHTML = "📸 Enviar foto de INE/Factura por WhatsApp."; info.style.display = "block";
-            cont.innerHTML = `<label>Marca:</label><input type="text" id="p_marca"><label>Modelo:</label><input type="text" id="p_modelo"><label>Serie:</label><input type="text" id="p_serie"><label>Propietario:</label><input type="text" id="p_nombre">`;
         }
     }
 
@@ -290,7 +287,17 @@
         let msg = "Hola, ";
         const get = (id) => document.getElementById(id) ? document.getElementById(id).value : "";
         
-        if(tipoTramite === 'pasaporte') {
+        if(tipoTramite === 'permiso') {
+            msg += `solicito PERMISO PARA CIRCULAR (GUERRERO):
+            - Marca: ${get('perm_marca')}
+            - Modelo: ${get('perm_modelo')}
+            - Línea: ${get('perm_linea')}
+            - Serie: ${get('perm_serie')}
+            - Motor: ${get('perm_motor')}
+            - Propietario: ${get('perm_propietario')}
+            - Dirección: ${get('perm_direccion')}
+            (Adjunto foto de INE o Factura)`;
+        } else if(tipoTramite === 'pasaporte') {
             msg += `solicito CITA PARA PASAPORTE:
             - CURP: ${get('p_curp')}
             - Estado: ${get('p_estado')}
