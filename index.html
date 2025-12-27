@@ -12,6 +12,10 @@
             --blanco: #ffffff;
             --gris-claro: #f4f7f6;
             --amarillo-brillante: #ffcc00;
+            --morado-stream: #6c5ce7;
+            --gris-oscuro: #34495e;
+            --rojo-suave: #e74c3c;
+            --dorado: #d4af37;
         }
 
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; padding: 0; color: #333; }
@@ -27,9 +31,14 @@
             display: flex; justify-content: space-around; border-bottom: 2px solid #27ae60; font-weight: bold; flex-wrap: wrap; gap: 10px;
         }
 
+        .aviso-volumen {
+            background: var(--amarillo-brillante); color: #000; text-align: center;
+            padding: 10px; font-weight: bold; font-size: 14px; border-radius: 10px;
+            margin: 10px auto; max-width: 900px; border: 2px dashed #000;
+        }
+
         .container { width: 95%; max-width: 1100px; margin: 20px auto; padding-bottom: 80px; }
 
-        /* SECCIÓN DE PASOS CREATIVA (RUTA DEL ÉXITO) */
         .seccion-pasos {
             background: var(--blanco); padding: 30px; border-radius: 25px; margin-bottom: 35px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.08); text-align: center;
@@ -45,9 +54,7 @@
             flex-wrap: wrap; margin-top: 30px; position: relative;
         }
 
-        .paso-item {
-            flex: 1; min-width: 150px; padding: 15px; position: relative; z-index: 2;
-        }
+        .paso-item { flex: 1; min-width: 150px; padding: 15px; position: relative; z-index: 2; }
 
         .icono-paso {
             width: 60px; height: 60px; background: var(--gris-claro); 
@@ -60,29 +67,58 @@
         .paso-item h4 { margin: 10px 0 5px; color: var(--azul-oscuro); font-size: 16px; }
         .paso-item p { font-size: 13px; color: #666; line-height: 1.4; }
 
-        /* DISEÑO DE TRÁMITES (IGUAL AL ANTERIOR) */
         h2 { text-align: center; color: var(--azul-oscuro); margin-top: 40px; text-transform: uppercase; border-bottom: 2px solid #27ae60; display: inline-block; width: 100%; padding-bottom: 10px; }
+        
         .grid-servicios { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-top: 20px; }
-        .card { background: var(--blanco); padding: 20px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center; border-top: 5px solid #27ae60; display: flex; flex-direction: column; justify-content: space-between; }
+        
+        .card { 
+            background: var(--blanco); padding: 20px; border-radius: 15px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center; 
+            border-top: 5px solid #27ae60;
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
         .card.especial { border-top-color: var(--naranja); }
         .card.imss { border-top-color: #3498db; }
-        .card.streaming { border-top-color: #e74c3c; }
-        .precio-txt { font-size: 26px; font-weight: bold; color: #27ae60; margin: 15px 0; }
-        .btn-ws { background-color: var(--verde-ws); color: white; border: none; padding: 14px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; font-size: 15px; }
+        .card.streaming { border-top-color: var(--morado-stream); }
+        .card.correccion { border-top-color: var(--rojo-suave); }
 
-        /* PAGO Y CONSULTA */
+        .precio-txt { font-size: 26px; font-weight: bold; color: #27ae60; margin: 15px 0; }
+        
+        .btn-ws { 
+            background-color: var(--verde-ws); color: white; border: none; 
+            padding: 14px; border-radius: 10px; font-weight: bold; 
+            cursor: pointer; width: 100%; font-size: 15px;
+        }
+
+        /* DISEÑO FORMAL PARA OTROS TRÁMITES */
+        .banner-personalizado {
+            background: linear-gradient(rgba(0,51,102,0.9), rgba(0,51,102,0.9)), url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80');
+            background-size: cover; background-position: center;
+            color: white; padding: 40px; border-radius: 20px; margin-top: 40px; text-align: center;
+            border-left: 10px solid var(--dorado); box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        .banner-personalizado h3 { font-size: 24px; margin-bottom: 10px; color: var(--dorado); }
+        .banner-personalizado p { font-size: 16px; margin-bottom: 20px; color: #ecf0f1; }
+        .btn-formal {
+            background: var(--dorado); color: #000; border: none; padding: 15px 30px;
+            border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 16px;
+            text-transform: uppercase; transition: 0.3s;
+        }
+        .btn-formal:hover { background: #b8972f; transform: translateY(-3px); }
+
         .seccion-pago { background: #fff; padding: 30px; border-radius: 20px; text-align: center; margin-top: 50px; border: 1px solid #ddd; }
         .tarjeta { background: linear-gradient(135deg, #1d1d1d, #434343); color: white; padding: 25px; border-radius: 15px; text-align: left; display: inline-block; width: 100%; max-width: 320px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
         .btn-copiar { background: var(--verde-ws); color: white; border: none; padding: 8px 12px; border-radius: 5px; font-size: 12px; cursor: pointer; margin-top: 10px; font-weight: bold; }
-        .consulta-especial { background: #fff; border: 2px dashed var(--azul-oscuro); padding: 30px; border-radius: 20px; text-align: center; margin-top: 40px; }
 
-        /* MODALES */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
         .modal-box { background: white; width: 90%; max-width: 500px; padding: 25px; border-radius: 20px; text-align: left; max-height: 90vh; overflow-y: auto; }
+        
         .form-datos label { font-weight: bold; display: block; margin-top: 12px; font-size: 14px; }
         .form-datos input, .form-datos textarea, .form-datos select { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
+        
         .btn-confirmar { background-color: var(--verde-ws); color: white; border: none; padding: 18px; border-radius: 12px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 20px; font-size: 17px; }
         .btn-cancelar { background: none; color: #dc3545; border: none; margin-top: 10px; cursor: pointer; width: 100%; text-decoration: underline; font-weight: bold; text-align: center; }
+
         .ws-flotante { position: fixed; bottom: 20px; right: 20px; background: var(--verde-ws); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 1000; text-decoration: none; }
     </style>
 </head>
@@ -102,6 +138,10 @@
 
 <div class="container">
     
+    <div class="aviso-volumen">
+        🚀 ¿Necesitas varios trámites? ¡SI TIENES VOLUMEN EL PRECIO PUEDE MEJORAR! Pregunta por nuestros descuentos.
+    </div>
+
     <div class="seccion-pasos">
         <h3 style="color: var(--azul-oscuro); margin-top: 0; font-size: 22px;">¡Tu documento en 4 simples pasos! ✨</h3>
         <div class="ruta-contenedor">
@@ -130,14 +170,16 @@
 
     <h2>📄 Trámites y Documentos</h2>
     <div class="grid-servicios">
-        <div class="card"><h3>Acta de Nacimiento,Matrimoñio,ETC</h3><div class="precio-txt">$45.00</div><button class="btn-ws" onclick="abrirModal('acta')">RELLENAR DATOS</button></div>
-        <div class="card"><h3>Actualizacion de CURP</h3><div class="precio-txt">$5.00</div><button class="btn-ws" onclick="abrirModal('CURP')">RELLENAR DATOS</button></div>
+        <div class="card"><h3>Acta de Nacimiento</h3><div class="precio-txt">$45.00</div><button class="btn-ws" onclick="abrirModal('acta')">RELLENAR DATOS</button></div>
+        <div class="card correccion"><h3>Corrección de Acta</h3><div class="precio-txt">Cotizar</div><button class="btn-ws" onclick="abrirModal('correccion_acta')">RELLENAR DATOS</button></div>
+        <div class="card"><h3>Acta de Matrimonio</h3><div class="precio-txt">$45.00</div><button class="btn-ws" onclick="abrirModal('matrimonio')">RELLENAR DATOS</button></div>
+        <div class="card"><h3>Acta de Defunción</h3><div class="precio-txt">$45.00</div><button class="btn-ws" onclick="abrirModal('defuncion')">RELLENAR DATOS</button></div>
+        <div class="card"><h3>Acta de Divorcio</h3><div class="precio-txt">$45.00</div><button class="btn-ws" onclick="abrirModal('divorcio')">RELLENAR DATOS</button></div>
+        <div class="card" style="border-top-color: #9b59b6;"><h3>Actualización CURP</h3><div class="precio-txt">$5.00</div><button class="btn-ws" onclick="abrirModal('curp_act')">RELLENAR DATOS</button></div>
         <div class="card"><h3>Constancia RFC</h3><div class="precio-txt">$180.00</div><button class="btn-ws" onclick="abrirModal('rfc')">RELLENAR DATOS</button></div>
         <div class="card"><h3>Buró de Crédito</h3><div class="precio-txt">$60.00</div><button class="btn-ws" onclick="abrirModal('buro')">RELLENAR DATOS</button></div>
         <div class="card"><h3>Cita Pasaporte</h3><div class="precio-txt">$150.00</div><button class="btn-ws" onclick="abrirModal('pasaporte')">RELLENAR DATOS</button></div>
-        <div class="card"><h3>Cita SAT</h3><div class="precio-txt">$150.00</div><button class="btn-ws" onclick="solicitarInfo('Cita del SAT')">SOLICITAR INFO</button></div>
-        <div class="card"><h3>Antecedentes NO Penales EDOMEX</h3><div class="precio-txt">$60.00</div><button class="btn-ws" onclick="solicitarInfo('Antecedentes Penales')">SOLICITAR INFO</button></div>
-        <div class="card especial"><h3>Permiso para Circular SIN PLACAS del esatado de GUERRERO</h3><div class="precio-txt">$80.00</div><button class="btn-ws" onclick="abrirModal('permiso')">RELLENAR DATOS</button></div>
+        <div class="card especial"><h3>Permiso Guerrero (Sin Placas)</h3><div class="precio-txt">$80.00</div><button class="btn-ws" onclick="abrirModal('permiso')">RELLENAR DATOS</button></div>
     </div>
 
     <h2>🏥 Servicios IMSS / CFE</h2>
@@ -145,23 +187,23 @@
         <div class="card imss"><h3>NSS (Seguro)</h3><div class="precio-txt">$20.00</div><button class="btn-ws" onclick="abrirModal('nss')">RELLENAR DATOS</button></div>
         <div class="card imss"><h3>Semanas Cotizadas</h3><div class="precio-txt">$20.00</div><button class="btn-ws" onclick="abrirModal('semanas')">RELLENAR DATOS</button></div>
         <div class="card imss"><h3>Vigencia de Derechos</h3><div class="precio-txt">$20.00</div><button class="btn-ws" onclick="abrirModal('vigencia')">RELLENAR DATOS</button></div>
+        <div class="card imss"><h3>Constancia de NO Derechohabiencia</h3><div class="precio-txt">$15.00</div><button class="btn-ws" onclick="abrirModal('no_derecho')">RELLENAR DATOS</button></div>
         <div class="card"><h3>Recibo de Luz CFE</h3><div class="precio-txt">$5.00</div><button class="btn-ws" onclick="abrirModal('cfe')">RELLENAR DATOS</button></div>
     </div>
 
-    <h2>🎬 Entretenimiento</h2>
+    <h2>📺 Cuentas de Streaming</h2>
     <div class="grid-servicios">
-        <div class="card streaming"><h3>Netflix</h3><div class="precio-txt">$80.00</div><button class="btn-ws" onclick="solicitarInfo('Netflix')">COMPRAR</button></div>
-        <div class="card streaming"><h3>Prime Video</h3><div class="precio-txt">$50.00</div><button class="btn-ws" onclick="solicitarInfo('Prime Video')">COMPRAR</button></div>
-        <div class="card streaming"><h3>Disney+</h3><div class="precio-txt">$50.00</div><button class="btn-ws" onclick="solicitarInfo('Disney+')">COMPRAR</button></div>
-        <div class="card streaming"><h3>Max (HBO)</h3><div class="precio-txt">$50.00</div><button class="btn-ws" onclick="solicitarInfo('Max (HBO)')">COMPRAR</button></div>
-        <div class="card streaming"><h3>Paramount+</h3><div class="precio-txt">$50.00</div><button class="btn-ws" onclick="solicitarInfo('Paramount+')">COMPRAR</button></div>
-        <div class="card streaming"><h3>YouTube Premium</h3><div class="precio-txt">$50.00</div><button class="btn-ws" onclick="solicitarInfo('YouTube Premium')">COMPRAR</button></div>
+        <div class="card streaming"><h3>Netflix</h3><div class="precio-txt">$40.00</div><button class="btn-ws" onclick="abrirModal('stream_netflix')">SOLICITAR CUENTA</button></div>
+        <div class="card streaming"><h3>Disney+ / Star+</h3><div class="precio-txt">$35.00</div><button class="btn-ws" onclick="abrirModal('stream_disney')">SOLICITAR CUENTA</button></div>
+        <div class="card streaming"><h3>HBO Max</h3><div class="precio-txt">$30.00</div><button class="btn-ws" onclick="abrirModal('stream_hbo')">SOLICITAR CUENTA</button></div>
+        <div class="card streaming"><h3>Amazon Prime</h3><div class="precio-txt">$30.00</div><button class="btn-ws" onclick="abrirModal('stream_prime')">SOLICITAR CUENTA</button></div>
+        <div class="card streaming"><h3>VIX Premium</h3><div class="precio-txt">$30.00</div><button class="btn-ws" onclick="abrirModal('stream_vix')">SOLICITAR CUENTA</button></div>
     </div>
 
-    <div class="consulta-especial">
-        <h3>🔎 ¿Buscas otro trámite?</h3>
-        <p>Si no lo ves en la lista, pregúntanos. ¡Podemos conseguirlo!</p>
-        <button class="btn-ws" style="max-width:300px; background:var(--azul-oscuro);" onclick="solicitarInfo('un trámite personalizado')">PREGUNTAR POR WHATSAPP</button>
+    <div class="banner-personalizado">
+        <h3>¿Requiere un Trámite Especializado?</h3>
+        <p>Si el servicio que busca no se encuentra en nuestro catálogo digital, póngase en contacto con uno de nuestros asesores para una atención personalizada y profesional.</p>
+        <button class="btn-formal" onclick="abrirModal('otro_tramite')">SOLICITAR ASESORÍA PERSONALIZADA</button>
     </div>
 
     <div class="seccion-pago">
@@ -178,6 +220,7 @@
 <div id="modalTramite" class="modal-overlay">
     <div class="modal-box">
         <h3 id="modalTitulo" style="text-align:center;">DATOS DEL TRÁMITE</h3>
+        <div id="infoEspecial" style="background:#fff3cd; color:#856404; padding:10px; border-radius:8px; margin-bottom:15px; font-size:13px; display:none; border:1px solid #ffeeba;"></div>
         <div id="contenedorCampos" class="form-datos"></div>
         <button class="btn-confirmar" onclick="procesarEnvio()">ENVIAR A WHATSAPP</button>
         <button class="btn-cancelar" onclick="cerrarModal()">CANCELAR</button>
@@ -189,7 +232,6 @@
 <script>
     let tipoTramite = "";
     function cerrarModal() { document.getElementById('modalTramite').style.display = 'none'; }
-    function solicitarInfo(n) { window.open("https://wa.me/522382035958?text=" + encodeURIComponent("Hola, solicito información sobre: " + n)); }
     
     function copiarCuenta() {
         navigator.clipboard.writeText("4027665310374161");
@@ -199,17 +241,39 @@
     function abrirModal(tipo) {
         tipoTramite = tipo;
         const cont = document.getElementById('contenedorCampos');
+        const info = document.getElementById('infoEspecial');
         cont.innerHTML = "";
+        info.style.display = "none";
         document.getElementById('modalTramite').style.display = 'flex';
 
-        if(tipo === 'acta') {
+        if(tipo === 'acta' || tipo === 'matrimonio' || tipo === 'defuncion' || tipo === 'divorcio' || tipo === 'curp_act' || tipo === 'no_derecho') {
             cont.innerHTML = '<label>CURP:</label><input type="text" id="d_curp" placeholder="Ingrese CURP">';
-        } else if(tipo === 'rfc') {
-            cont.innerHTML = '<label>CURP o RFC:</label><input type="text" id="d_id" placeholder="Ingrese dato">';
+        } else if(tipo === 'correccion_acta') {
+            info.innerHTML = "📸 <strong>IMPORTANTE:</strong> Al terminar, debes enviar foto del <strong>ACTA</strong> y de la <strong>CURP</strong> por WhatsApp.";
+            info.style.display = "block";
+            cont.innerHTML = `<label>CURP de la persona:</label><input type="text" id="c_curp"><label>Estado:</label><input type="text" id="c_estado"><label>Error a corregir:</label><textarea id="c_error" rows="2"></textarea>`;
         } else if(tipo === 'buro') {
-            cont.innerHTML = '<label>Nombre Completo:</label><input type="text" id="d_ine"><label>RFC:</label><input type="text" id="d_rfc"><label>CURP:</label><input type="text" id="d_curp"><label>Tarjeta (Opcional):</label><input type="text" id="d_tarjeta"><label># Crédito:</label><input type="text" id="d_ncredito"><label>Límite:</label><input type="text" id="d_limite">';
+            info.innerHTML = "📸 <strong>REQUISITO:</strong> Recuerda que debes enviarnos la foto de tu <strong>INE</strong> por WhatsApp.";
+            info.style.display = "block";
+            cont.innerHTML = `<label>RFC:</label><input type="text" id="b_rfc"><label>CURP:</label><input type="text" id="b_curp"><label>Tarjeta de Crédito (Opcional):</label><input type="text" id="b_tarjeta" placeholder="Número"><label>Límite de Crédito:</label><input type="text" id="b_limite" placeholder="Ej. $5000">`;
         } else if(tipo === 'pasaporte') {
-            cont.innerHTML = '<label>CURP:</label><input type="text" id="d_curp"><label>Vigencia:</label><select id="d_vigencia"><option>3 años</option><option>6 años</option><option>10 años</option></select><label>Estado para Cita:</label><input type="text" id="d_estado"><label>Preferencia de Hora:</label><input type="time" id="d_hora">';
+            cont.innerHTML = `
+                <label>CURP:</label><input type="text" id="p_curp">
+                <label>Estado para la cita:</label><input type="text" id="p_estado">
+                <label>Día de preferencia:</label><input type="date" id="p_dia">
+                <label>Hora de preferencia:</label><input type="time" id="p_hora">
+                <label>Vigencia del Pasaporte:</label>
+                <select id="p_vigencia">
+                    <option value="3 años">3 años</option>
+                    <option value="6 años">6 años</option>
+                    <option value="10 años">10 años</option>
+                </select>`;
+        } else if(tipo === 'otro_tramite') {
+            cont.innerHTML = '<label>Describa el servicio requerido:</label><textarea id="d_otro" rows="3"></textarea><label>Nombre completo:</label><input type="text" id="d_nombre_otro">';
+        } else if(tipo.startsWith('stream_')) {
+            cont.innerHTML = '<label>Nombre del Cliente:</label><input type="text" id="d_cliente">';
+        } else if(tipo === 'rfc') {
+            cont.innerHTML = '<label>CURP o RFC:</label><input type="text" id="d_id">';
         } else if(tipo === 'nss') {
             cont.innerHTML = '<label>CURP:</label><input type="text" id="d_curp">';
         } else if(tipo === 'semanas' || tipo === 'vigencia') {
@@ -217,22 +281,36 @@
         } else if(tipo === 'cfe') {
             cont.innerHTML = '<label>Número de Servicio:</label><input type="text" id="d_servicio">';
         } else if(tipo === 'permiso') {
-            cont.innerHTML = '<label>Marca:</label><input type="text" id="p_marca"><label>Línea:</label><input type="text" id="p_linea"><label>Color:</label><input type="text" id="p_color"><label>Serie:</label><input type="text" id="p_serie"><label>Motor:</label><input type="text" id="p_motor"><label>Propietario:</label><input type="text" id="p_nombre"><label>Dirección:</label><textarea id="p_dir" rows="2"></textarea>';
+            info.innerHTML = "📸 Enviar foto de INE/Factura por WhatsApp."; info.style.display = "block";
+            cont.innerHTML = `<label>Marca:</label><input type="text" id="p_marca"><label>Modelo:</label><input type="text" id="p_modelo"><label>Serie:</label><input type="text" id="p_serie"><label>Propietario:</label><input type="text" id="p_nombre">`;
         }
     }
 
     function procesarEnvio() {
-        let msg = "Hola, solicito el trámite: ";
+        let msg = "Hola, ";
         const get = (id) => document.getElementById(id) ? document.getElementById(id).value : "";
-        if(tipoTramite === 'acta') msg += "ACTA DE NACIMIENTO. CURP: " + get('d_curp');
-        else if(tipoTramite === 'rfc') msg += "CONSTANCIA RFC. Dato: " + get('d_id');
-        else if(tipoTramite === 'buro') msg += "BURÓ DE CRÉDITO. Nombre: "+get('d_ine')+" RFC: "+get('d_rfc')+" CURP: "+get('d_curp');
-        else if(tipoTramite === 'pasaporte') msg += "CITA PASAPORTE. CURP: "+get('d_curp')+" Vigencia: "+get('d_vigencia')+" Estado: "+get('d_estado');
-        else if(tipoTramite === 'nss') msg += "NSS. CURP: " + get('d_curp');
-        else if(tipoTramite === 'semanas') msg += "SEMANAS COTIZADAS. CURP: "+get('d_curp')+" NSS: "+get('d_nss');
-        else if(tipoTramite === 'vigencia') msg += "VIGENCIA DERECHOS. CURP: "+get('d_curp')+" NSS: "+get('d_nss');
-        else if(tipoTramite === 'cfe') msg += "RECIBO CFE. Servicio: " + get('d_servicio');
-        else if(tipoTramite === 'permiso') msg += "PERMISO CIRCULAR. Vehículo: "+get('p_marca')+" Dueño: "+get('p_nombre')+" Serie: "+get('p_serie');
+        
+        if(tipoTramite === 'pasaporte') {
+            msg += `solicito CITA PARA PASAPORTE:
+            - CURP: ${get('p_curp')}
+            - Estado: ${get('p_estado')}
+            - Día: ${get('p_dia')}
+            - Hora: ${get('p_hora')}
+            - Vigencia: ${get('p_vigencia')}`;
+        } else if(tipoTramite === 'buro') {
+            msg += `solicito BURÓ DE CRÉDITO:
+            - RFC: ${get('b_rfc')}
+            - CURP: ${get('b_curp')}
+            - Tarjeta: ${get('b_tarjeta')}
+            - Límite: ${get('b_limite')}
+            (Envío foto de INE)`;
+        } else if(tipoTramite === 'otro_tramite') {
+            msg += `solicito ASESORÍA PARA GESTIÓN ESPECIAL:
+            - Detalle: ${get('d_otro')}
+            - Cliente: ${get('d_nombre_otro')}`;
+        } else {
+            msg += "solicito trámite: " + tipoTramite + ". Datos: " + get('d_curp') + get('d_cliente') + get('d_id');
+        }
 
         window.open("https://wa.me/522382035958?text=" + encodeURIComponent(msg));
         cerrarModal();
@@ -240,6 +318,3 @@
 </script>
 </body>
 </html>
-
-
-
