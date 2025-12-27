@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trámites y Servicios ADS</title>
+    <style>
+        :root {
+            --azul-oscuro: #003366;
+            --verde-ws: #25d366;
+            --azul-brillante: #007bff;
+            --naranja-aviso: #e67e22;
+            --blanco: #ffffff;
+        }
+
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; padding: 0; color: #333; }
+        
+        header { 
+            background: linear-gradient(135deg, var(--azul-oscuro), #00509d); 
+            color: white; text-align: center; padding: 40px 20px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .container { width: 95%; max-width: 1100px; margin: 20px auto; padding-bottom: 80px; }
+
+        h2 { text-align: center; color: var(--azul-oscuro); margin-top: 40px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 2px solid #27ae60; display: inline-block; width: 100%; padding-bottom: 10px; }
+        
+        .grid-servicios { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-top: 20px; }
+        
+        .card { 
+            background: var(--blanco); padding: 20px; border-radius: 15px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center; 
+            border-top: 5px solid #27ae60;
+            transition: transform 0.3s ease;
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 12px 20px rgba(0,0,0,0.1); }
+        .card.especial { border-top-color: var(--naranja-aviso); }
+        .card.imss { border-top-color: #3498db; }
+        .card.streaming { border-top-color: #e74c3c; }
+
+        /* SECCIÓN AYUDA PERSONALIZADA */
+        .seccion-pregunta {
+            background: #e1f5fe; border: 2px dashed #0288d1;
+            padding: 25px; border-radius: 15px; text-align: center; margin-top: 40px;
+        }
+        .seccion-pregunta h3 { margin: 0 0 10px 0; color: #01579b; }
+        .btn-pregunta { 
+            background: #0288d1; color: white; border: none; padding: 12px 25px; 
+            border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px;
+        }
+
+        .precio-txt { font-size: 26px; font-weight: bold; color: #27ae60; margin: 15px 0; }
+        
+        .btn-ws { 
+            background-color: var(--verde-ws); color: white; border: none; 
+            padding: 14px; border-radius: 10px; font-weight: bold; 
+            cursor: pointer; width: 100%; font-size: 15px;
+        }
+
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+        .modal-box { background: white; width: 90%; max-width: 500px; padding: 30px; border-radius: 20px; text-align: center; max-height: 90vh; overflow-y: auto; }
+        
+        .modal-box h3 { color: #0056b3; font-size: 22px; margin-bottom: 15px; text-transform: uppercase; }
+        
+        .modal-box p { 
+            font-size: 15px; color: #004085; background: #e7f3ff; 
+            padding: 15px; border-radius: 12px; border: 2px solid #b8daff; 
+            text-align: left; line-height: 1.5; font-weight: 500;
+        }
+
+        .form-correccion { text-align: left; margin-top: 15px; display: none; }
+        .form-correccion label { font-weight: bold; color: var(--azul-oscuro); display: block; margin-bottom: 5px; }
+        .form-correccion input, .form-correccion textarea { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
+        
+        .btn-confirmar { background-color: var(--verde-ws); color: white; border: none; padding: 18px; border-radius: 12px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px; font-size: 17px; }
+        .btn-cancelar { background: none; color: #dc3545; border: none; margin-top: 10px; cursor: pointer; text-decoration: underline; font-weight: bold; }
+
+        .seccion-banco { background: #fff; padding: 30px; border-radius: 20px; text-align: center; margin-top: 50px; border: 1px solid #ddd; }
+        .tarjeta-visual { background: linear-gradient(135deg, #622181, #a239ca); color: white; padding: 25px; border-radius: 15px; display: inline-block; text-align: left; width: 100%; max-width: 350px; }
+
+        .ws-flotante { position: fixed; bottom: 20px; right: 20px; background: var(--verde-ws); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 1000; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>TRAMITES Y SERVICIOS ADS</h1>
+    <p>Documentación Digital y Gestoría Profesional</p>
+</header>
+
+<div class="container">
+    
+    <h2>📄 Trámites y Documentos</h2>
+    <div class="grid-servicios">
+        <div class="card"><h3>Acta de Nacimiento</h3><div class="precio-txt">$45.00</div><button class="btn-ws" onclick="abrirModal('Acta de Nacimiento', '• CURP escrita.')">SOLICITAR</button></div>
+        <div class="card"><h3>Constancia RFC</h3><div class="precio-txt">$180.00</div><button class="btn-ws" onclick="abrirModal('Constancia de RFC', '• CURP o RFC escrito.')">SOLICITAR</button></div>
+        <div class="card"><h3>Antecedentes Penales</h3><div class="precio-txt">$60.00</div><button class="btn-ws" onclick="abrirModal('Antecedentes Penales', '• Foto de INE vigente.<br>• CURP escrita.')">SOLICITAR</button></div>
+        <div class="card"><h3>Buró de Crédito</h3><div class="precio-txt">$60.00</div><button class="btn-ws" onclick="abrirModal('Buró de Crédito', '• RFC con Homoclave.<br>• CURP.<br>• Dirección completa.<br>• Datos de Créditos vigentes.')">SOLICITAR</button></div>
+        <div class="card"><h3>Cita Pasaporte</h3><div class="precio-txt">$150.00</div><button class="btn-ws" onclick="abrirModal('Cita de Pasaporte', '• CURP escrita.<br>• Vigencia (3, 6 o 10 años).<br>• Estado (Lugar).<br>• Día y hora preferida.')">SOLICITAR</button></div>
+        <div class="card"><h3>Cita SAT</h3><div class="precio-txt">$150.00</div><button class="btn-ws" onclick="abrirModal('Cita del SAT', '• CURP.<br>• RFC (si tiene).<br>• Correo electrónico.')">SOLICITAR</button></div>
+        <div class="card especial"><h3>Permiso Circular</h3><div class="precio-txt">$80.00</div><button class="btn-ws" onclick="abrirModal('Permiso Circular', '• Marca, Línea, Color.<br>• Serie y Motor.<br>• Nombre y Dirección.<br>• Foto INE o Factura.')">SOLICITAR</button></div>
+    </div>
+
+    <h2>🏥 Servicios del IMSS</h2>
+    <div class="grid-servicios">
+        <div class="card imss"><h3>Número de Seguro (NSS)</h3><div class="precio-txt">$20.00</div><button class="btn-ws" onclick="abrirModal('NSS', '• CURP escrita.')">SOLICITAR</button></div>
+        <div class="card imss"><h3>Semanas Cotizadas</h3><div class="precio-txt">$20.00</div><button class="btn-ws" onclick="abrirModal('Semanas Cotizadas', '• CURP escrita.')">SOLICITAR</button></div>
+        <div class="card imss"><h3>Vigencia de Derechos</h3><div class="precio-txt">$20.00</div><button class="btn-ws" onclick="abrirModal('Vigencia de Derechos', '• CURP escrita.')">SOLICITAR</button></div>
+        <div class="card"><h3>Recibo de Luz CFE</h3><div class="precio-txt">$5.00</div><button class="btn-ws" onclick="abrirModal('Recibo de Luz', '• Número de servicio.')">SOLICITAR</button></div>
+    </div>
+
+    <h2>🎬 Entretenimiento Streaming</h2>
+    <div class="grid-servicios">
+        <div class="card streaming"><h3>Netflix</h3><div class="precio-txt">$80.00</div><button class="btn-ws" onclick="abrirModal('Netflix', 'Cuenta activa tras el pago.')">COMPRAR</button></div>
+        <div class="card streaming"><h3>Disney+ / Vix</h3><div class="precio-txt">$70.00</div><button class="btn-ws" onclick="abrirModal('Streaming', 'Cuenta activa tras el pago.')">COMPRAR</button></div>
+    </div>
+
+    <div class="seccion-pregunta">
+        <h3>🔎 ¿No encuentras lo que buscas?</h3>
+        <p>Pregunta sin compromiso por cualquier otro trámite. <b>¡Quizá sí lo tenemos disponible!</b></p>
+        <button class="btn-pregunta" onclick="preguntarOtro()">CONSULTAR OTRO SERVICIO</button>
+    </div>
+
+    <h2>🛠️ Correcciones Especiales</h2>
+    <div class="grid-servicios">
+        <div class="card especial" style="grid-column: 1 / -1;">
+            <h3>Corrección de Acta de Nacimiento</h3>
+            <p>Atención: <b>Guerrero, Oaxaca, Michoacán, Jalisco, Veracruz, San Luis Potosí, entre otros.</b></p>
+            <div class="precio-txt" style="color:var(--naranja-aviso)">BAJO COTIZACIÓN</div>
+            <button class="btn-ws" onclick="abrirModalCorreccion()">INICIAR SOLICITUD DE COTIZACIÓN</button>
+        </div>
+    </div>
+
+    <div class="seccion-banco">
+        <h3>💳 Datos para Pago</h3>
+        <div class="tarjeta-visual">
+            <small>BANCO AZTECA</small><br>
+            <strong>ANDRES GARCIA</strong><br><br>
+            <span style="font-family: monospace; font-size: 1.3em;">4027 6653 1037 4161</span>
+        </div>
+    </div>
+</div>
+
+<a href="https://wa.me/522382035958" class="ws-flotante" target="_blank">💬</a>
+
+<div id="miModal" class="modal-overlay">
+    <div class="modal-box">
+        <h3 id="modalTitulo">REQUISITOS ℹ️</h3>
+        <p id="modalTexto"></p>
+        <div id="formCorreccion" class="form-correccion">
+            <label>Estado del Acta:</label>
+            <input type="text" id="estadoActa" placeholder="Ej. Guerrero, Oaxaca...">
+            <label>¿Qué problema tiene el acta?</label>
+            <textarea id="problemaActa" rows="3" placeholder="Ej. Error en nombre..."></textarea>
+            <p style="background:#fff3cd; color:#856404; font-size:13px; padding:10px; border-radius:8px;">
+                ⚠️ Al enviar, recuerda adjuntar en WhatsApp la <b>FOTO DEL ACTA</b> y la <b>FOTO DE TU CURP</b>.
+            </p>
+        </div>
+        <button class="btn-confirmar" id="btnAceptar">SÍ, ENVIAR POR WHATSAPP</button>
+        <button class="btn-cancelar" onclick="cerrarModal()">CANCELAR</button>
+    </div>
+</div>
+
+<script>
+    let tramiteActual = "";
+    let esCorreccion = false;
+
+    function abrirModal(tramite, requisitos) {
+        esCorreccion = false;
+        tramiteActual = tramite;
+        document.getElementById('modalTitulo').innerText = "REQUISITOS ℹ️";
+        document.getElementById('modalTexto').style.display = 'block';
+        document.getElementById('formCorreccion').style.display = 'none';
+        document.getElementById('modalTexto').innerHTML = "<b>Para " + tramite + " necesito:</b><br><br>" + requisitos;
+        document.getElementById('miModal').style.display = 'flex';
+    }
+
+    function abrirModalCorreccion() {
+        esCorreccion = true;
+        tramiteActual = "Corrección de Acta";
+        document.getElementById('modalTitulo').innerText = "DETALLES DE CORRECCIÓN 🛠️";
+        document.getElementById('modalTexto').style.display = 'none';
+        document.getElementById('formCorreccion').style.display = 'block';
+        document.getElementById('miModal').style.display = 'flex';
+    }
+
+    function cerrarModal() { document.getElementById('miModal').style.display = 'none'; }
+
+    function preguntarOtro() {
+        window.open("https://wa.me/522382035958?text=" + encodeURIComponent("Hola, busco un trámite que no vi en la lista de la página. ¿Me podrían informar si lo realizan?"));
+    }
+
+    document.getElementById('btnAceptar').onclick = function() {
+        const hora = new Date().getHours();
+        let saludo = (hora >= 6 && hora < 12) ? "Buenos días" : (hora >= 12 && hora < 19) ? "Buenas tardes" : "Buenas noches";
+        let mensajeBase = "Hola, " + saludo + ". ";
+        if(esCorreccion) {
+            let estado = document.getElementById('estadoActa').value;
+            let problema = document.getElementById('problemaActa').value;
+            if(!estado || !problema) { alert("Por favor completa los campos."); return; }
+            mensajeBase += "Necesito cotizar una CORRECCIÓN DE ACTA.\n\n📍 Estado: " + estado + "\n❌ Problema: " + problema;
+        } else {
+            mensajeBase += "Necesito información sobre: " + tramiteActual;
+        }
+        window.open("https://wa.me/522382035958?text=" + encodeURIComponent(mensajeBase));
+        cerrarModal();
+    };
+</script>
+
+</body>
+</html>
