@@ -26,6 +26,19 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
+        /* --- ESTILO DE IMAGENES Y ANIMACIÓN --- */
+        .img-contenedor {
+            width: 100%; height: 120px; margin-bottom: 10px;
+            border-radius: 10px; background: #f9f9f9;
+            display: flex; align-items: center; justify-content: center; overflow: hidden;
+        }
+        .img-contenedor img {
+            max-width: 100%; max-height: 100%; object-fit: contain;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        /* Esta clase hace que la imagen salte y gire un poco */
+        .animar-imagen { transform: scale(1.2) rotate(5deg); }
+
         .barra-confianza {
             background: #fff; padding: 12px 0; text-align: center; font-size: 13px;
             display: flex; justify-content: space-around; border-bottom: 2px solid #27ae60; font-weight: bold; flex-wrap: wrap; gap: 10px;
@@ -169,40 +182,40 @@
 
     <h2>📄 Trámites y Documentos</h2>
     <div class="grid-servicios">
-        <div class="card"><h3>Acta de Nacimiento</h3><div class="precio-txt">$45.00</div><button class="btn-ws" onclick="abrirModal('acta')">RELLENAR DATOS</button></div>
-        <div class="card correccion"><h3>Corrección de Acta</h3><div class="precio-txt">Cotizar</div><button class="btn-ws" onclick="abrirModal('correccion_acta')">RELLENAR DATOS</button></div>
-        <div class="card"><h3>Acta de Matrimonio</h3><div class="precio-txt">$45.00</div><button class="btn-ws" onclick="abrirModal('matrimonio')">RELLENAR DATOS</button></div>
-        <div class="card"><h3>Acta de Defunción</h3><div class="precio-txt">$45.00</div><button class="btn-ws" onclick="abrirModal('defuncion')">RELLENAR DATOS</button></div>
-        <div class="card"><h3>Acta de Divorcio</h3><div class="precio-txt">$45.00</div><button class="btn-ws" onclick="abrirModal('divorcio')">RELLENAR DATOS</button></div>
-        <div class="card" style="border-top-color: #9b59b6;"><h3>Actualización CURP</h3><div class="precio-txt">$5.00</div><button class="btn-ws" onclick="abrirModal('curp_act')">RELLENAR DATOS</button></div>
-        <div class="card"><h3>Constancia RFC</h3><div class="precio-txt">$180.00</div><button class="btn-ws" onclick="abrirModal('rfc')">RELLENAR DATOS</button></div>
-        <div class="card"><h3>Buró de Crédito</h3><div class="precio-txt">$60.00</div><button class="btn-ws" onclick="abrirModal('buro')">RELLENAR DATOS</button></div>
-        <div class="card"><h3>Cita Pasaporte</h3><div class="precio-txt">$150.00</div><button class="btn-ws" onclick="abrirModal('pasaporte')">RELLENAR DATOS</button></div>
-        <div class="card especial"><h3>Permiso Guerrero (Sin Placas)</h3><div class="precio-txt">$80.00</div><button class="btn-ws" onclick="abrirModal('permiso')">RELLENAR DATOS</button></div>
+        <div class="card"><div class="img-contenedor"><img src="acta-nacimiento.png"></div><h3>Acta de Nacimiento</h3><div class="precio-txt">$45.00</div><button class="btn-ws" onclick="abrirModal('acta', this)">RELLENAR DATOS</button></div>
+        <div class="card correccion"><div class="img-contenedor"><img src="correccion.png"></div><h3>Corrección de Acta</h3><div class="precio-txt">Cotizar</div><button class="btn-ws" onclick="abrirModal('correccion_acta', this)">RELLENAR DATOS</button></div>
+        <div class="card"><div class="img-contenedor"><img src="matrimonio.png"></div><h3>Acta de Matrimonio</h3><div class="precio-txt">$45.00</div><button class="btn-ws" onclick="abrirModal('matrimonio', this)">RELLENAR DATOS</button></div>
+        <div class="card"><div class="img-contenedor"><img src="defuncion.png"></div><h3>Acta de Defunción</h3><div class="precio-txt">$45.00</div><button class="btn-ws" onclick="abrirModal('defuncion', this)">RELLENAR DATOS</button></div>
+        <div class="card"><div class="img-contenedor"><img src="divorcio.png"></div><h3>Acta de Divorcio</h3><div class="precio-txt">$45.00</div><button class="btn-ws" onclick="abrirModal('divorcio', this)">RELLENAR DATOS</button></div>
+        <div class="card" style="border-top-color: #9b59b6;"><div class="img-contenedor"><img src="curp.jpg"></div><h3>Actualización CURP</h3><div class="precio-txt">$5.00</div><button class="btn-ws" onclick="abrirModal('curp_act', this)">RELLENAR DATOS</button></div>
+        <div class="card"><div class="img-contenedor"><img src="rfc.png"></div><h3>Constancia RFC</h3><div class="precio-txt">$180.00</div><button class="btn-ws" onclick="abrirModal('rfc', this)">RELLENAR DATOS</button></div>
+        <div class="card"><div class="img-contenedor"><img src="buro.png"></div><h3>Buró de Crédito</h3><div class="precio-txt">$60.00</div><button class="btn-ws" onclick="abrirModal('buro', this)">RELLENAR DATOS</button></div>
+        <div class="card"><div class="img-contenedor"><img src="pasaporte.png"></div><h3>Cita Pasaporte</h3><div class="precio-txt">$150.00</div><button class="btn-ws" onclick="abrirModal('pasaporte', this)">RELLENAR DATOS</button></div>
+        <div class="card especial"><div class="img-contenedor"><img src="permiso.jpeg"></div><h3>Permiso Guerrero (Sin Placas)</h3><div class="precio-txt">$80.00</div><button class="btn-ws" onclick="abrirModal('permiso', this)">RELLENAR DATOS</button></div>
     </div>
 
     <h2>🏥 Servicios IMSS / CFE</h2>
     <div class="grid-servicios">
-        <div class="card imss"><h3>NSS (Seguro)</h3><div class="precio-txt">$20.00</div><button class="btn-ws" onclick="abrirModal('nss')">RELLENAR DATOS</button></div>
-        <div class="card imss"><h3>Semanas Cotizadas</h3><div class="precio-txt">$20.00</div><button class="btn-ws" onclick="abrirModal('semanas')">RELLENAR DATOS</button></div>
-        <div class="card imss"><h3>Vigencia de Derechos</h3><div class="precio-txt">$20.00</div><button class="btn-ws" onclick="abrirModal('vigencia')">RELLENAR DATOS</button></div>
-        <div class="card imss"><h3>Constancia de NO Derechohabiencia</h3><div class="precio-txt">$15.00</div><button class="btn-ws" onclick="abrirModal('no_derecho')">RELLENAR DATOS</button></div>
-        <div class="card"><h3>Recibo de Luz CFE</h3><div class="precio-txt">$5.00</div><button class="btn-ws" onclick="abrirModal('cfe')">RELLENAR DATOS</button></div>
+        <div class="card imss"><div class="img-contenedor"><img src="nss.png"></div><h3>NSS (Seguro)</h3><div class="precio-txt">$20.00</div><button class="btn-ws" onclick="abrirModal('nss', this)">RELLENAR DATOS</button></div>
+        <div class="card imss"><div class="img-contenedor"><img src="semanas cotizadas.png"></div><h3>Semanas Cotizadas</h3><div class="precio-txt">$20.00</div><button class="btn-ws" onclick="abrirModal('semanas', this)">RELLENAR DATOS</button></div>
+        <div class="card imss"><div class="img-contenedor"><img src="vigencia de derechos.jpg"></div><h3>Vigencia de Derechos</h3><div class="precio-txt">$20.00</div><button class="btn-ws" onclick="abrirModal('vigencia', this)">RELLENAR DATOS</button></div>
+        <div class="card imss"><div class="img-contenedor"><img src="no derechohabiente.jpg"></div><h3>Constancia de NO Derechohabiencia</h3><div class="precio-txt">$15.00</div><button class="btn-ws" onclick="abrirModal('no_derecho', this)">RELLENAR DATOS</button></div>
+        <div class="card"><div class="img-contenedor"><img src="cfe.png"></div><h3>Recibo de Luz CFE</h3><div class="precio-txt">$5.00</div><button class="btn-ws" onclick="abrirModal('cfe', this)">RELLENAR DATOS</button></div>
     </div>
 
     <h2>📺 Cuentas de Streaming</h2>
     <div class="grid-servicios">
-        <div class="card streaming"><h3>Netflix</h3><div class="precio-txt">$80.00</div><button class="btn-ws" onclick="abrirModal('stream_netflix')">SOLICITAR CUENTA</button></div>
-        <div class="card streaming"><h3>Disney+ / Star+</h3><div class="precio-txt">$50.00</div><button class="btn-ws" onclick="abrirModal('stream_disney')">SOLICITAR CUENTA</button></div>
-        <div class="card streaming"><h3>HBO Max</h3><div class="precio-txt">$50.00</div><button class="btn-ws" onclick="abrirModal('stream_hbo')">SOLICITAR CUENTA</button></div>
-        <div class="card streaming"><h3>Amazon Prime</h3><div class="precio-txt">$50.00</div><button class="btn-ws" onclick="abrirModal('stream_prime')">SOLICITAR CUENTA</button></div>
-        <div class="card streaming"><h3>VIX Premium</h3><div class="precio-txt">$50.00</div><button class="btn-ws" onclick="abrirModal('stream_vix')">SOLICITAR CUENTA</button></div>
+        <div class="card streaming"><div class="img-contenedor"><img src="netflix.jpg"></div><h3>Netflix</h3><div class="precio-txt">$80.00</div><button class="btn-ws" onclick="abrirModal('stream_netflix', this)">SOLICITAR CUENTA</button></div>
+        <div class="card streaming"><div class="img-contenedor"><img src="disney.jpg"></div><h3>Disney+ / Star+</h3><div class="precio-txt">$50.00</div><button class="btn-ws" onclick="abrirModal('stream_disney', this)">SOLICITAR CUENTA</button></div>
+        <div class="card streaming"><div class="img-contenedor"><img src="max.jpg"></div><h3>HBO Max</h3><div class="precio-txt">$50.00</div><button class="btn-ws" onclick="abrirModal('stream_hbo', this)">SOLICITAR CUENTA</button></div>
+        <div class="card streaming"><div class="img-contenedor"><img src="prime.png"></div><h3>Amazon Prime</h3><div class="precio-txt">$50.00</div><button class="btn-ws" onclick="abrirModal('stream_prime', this)">SOLICITAR CUENTA</button></div>
+        <div class="card streaming"><div class="img-contenedor"><img src="vix.png"></div><h3>VIX Premium</h3><div class="precio-txt">$50.00</div><button class="btn-ws" onclick="abrirModal('stream_vix', this)">SOLICITAR CUENTA</button></div>
     </div>
 
     <div class="banner-personalizado">
         <h3>¿Requiere un Trámite Especializado?</h3>
         <p>Si el servicio que busca no se encuentra en nuestro catálogo digital, póngase en contacto con uno de nuestros asesores para una atención personalizada y profesional.</p>
-        <button class="btn-formal" onclick="abrirModal('otro_tramite')">SOLICITAR ASESORÍA PERSONALIZADA</button>
+        <button class="btn-formal" onclick="abrirModal('otro_tramite', this)">SOLICITAR ASESORÍA PERSONALIZADA</button>
     </div>
 
     <div class="seccion-pago">
@@ -237,8 +250,22 @@
         alert("Número copiado con éxito.");
     }
 
-    function abrirModal(tipo) {
+    // He añadido el parámetro "btn" para localizar la imagen
+    function abrirModal(tipo, btn) {
         tipoTramite = tipo;
+
+        // --- LÓGICA DE MOVIMIENTO DE IMAGEN ---
+        if(btn) {
+            const card = btn.closest('.card') || btn.closest('.banner-personalizado');
+            if(card) {
+                const img = card.querySelector('.img-contenedor img');
+                if(img) {
+                    img.classList.add('animar-imagen');
+                    setTimeout(() => { img.classList.remove('animar-imagen'); }, 400);
+                }
+            }
+        }
+
         const cont = document.getElementById('contenedorCampos');
         const info = document.getElementById('infoEspecial');
         cont.innerHTML = "";
@@ -316,7 +343,7 @@
             - Detalle: ${get('d_otro')}
             - Cliente: ${get('d_nombre_otro')}`;
         } else {
-            msg += "solicito trámite: " + tipoTramite + ". Datos: " + get('d_curp') + get('d_cliente') + get('d_id');
+            msg += "solicito trámite: " + tipoTramite + ". Datos: " + (get('d_curp') || get('d_cliente') || get('d_id') || get('d_servicio'));
         }
 
         window.open("https://wa.me/522382035958?text=" + encodeURIComponent(msg));
