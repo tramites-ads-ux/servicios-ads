@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GESTORIA Y SERVICIOS ADS</title>
+    <title>ADS Servicios Digitales</title>
     <style>
         :root {
             --azul-oscuro: #003366;
@@ -56,7 +56,7 @@
         .btn-ws { background: var(--verde-ws); color: white; border: none; padding: 8px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 100%; font-size: 11px; }
 
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(3px); }
-        .modal-box { background: var(--azul-oscuro); color: white; width: 90%; max-width: 420px; padding: 20px; border-radius: 12px; max-height: 95vh; overflow-y: auto; }
+        .modal-box { background: var(--azul-oscuro); color: white; width: 90%; max-width: 450px; padding: 20px; border-radius: 12px; max-height: 95vh; overflow-y: auto; }
         .form-datos label { font-weight: bold; display: block; margin-top: 10px; font-size: 12px; color: #cbd5e0; }
         .form-datos input, .form-datos textarea, .form-datos select { width: 100%; padding: 8px; margin-top: 4px; border-radius: 5px; border: none; box-sizing: border-box; font-size: 13px; }
         
@@ -68,7 +68,7 @@
 <body>
 
 <header>
-    <h1>GESTORIA Y SERVICIOS ADS</h1>
+    <h1>ADS SERVICIOS DIGITALES</h1>
 </header>
 
 <div class="banner-pago">
@@ -88,11 +88,11 @@
         <div class="card"><div class="img-contenedor"><img src="matrimonio.png"></div><h3>Acta de Matrimonio</h3><div class="precio-txt">$45</div><button class="btn-ws" onclick="abrirModal('gen', 'Acta de Matrimonio')">SOLICITAR</button></div>
         <div class="card"><div class="img-contenedor"><img src="defuncion.png"></div><h3>Acta de Defunción</h3><div class="precio-txt">$45</div><button class="btn-ws" onclick="abrirModal('gen', 'Acta de Defunción')">SOLICITAR</button></div>
         <div class="card"><div class="img-contenedor"><img src="divorcio.png"></div><h3>Acta de Divorcio</h3><div class="precio-txt">$45</div><button class="btn-ws" onclick="abrirModal('gen', 'Acta de Divorcio')">SOLICITAR</button></div>
-        <div class="card"><div class="img-contenedor"><img src="buro.png"></div><h3>Buró de Crédito</h3><div class="precio-txt">$96</div><button class="btn-ws" onclick="abrirModal('buro', 'Buró de Crédito')">SOLICITAR</button></div>
+        <div class="card"><div class="img-contenedor"><img src="buro.png"></div><h3>Buró de Crédito</h3><div class="precio-txt">$60</div><button class="btn-ws" onclick="abrirModal('buro', 'Buró de Crédito')">SOLICITAR</button></div>
         <div class="card"><div class="img-contenedor"><img src="pasaporte.png"></div><h3>Cita Pasaporte</h3><div class="precio-txt">$150</div><button class="btn-ws" onclick="abrirModal('pass', 'Cita Pasaporte')">SOLICITAR</button></div>
         <div class="card"><div class="img-contenedor"><img src="rfc.png"></div><h3>Constancia RFC</h3><div class="precio-txt">$180</div><button class="btn-ws" onclick="abrirModal('gen', 'Constancia RFC')">SOLICITAR</button></div>
         <div class="card"><div class="img-contenedor"><img src="curp.jpg"></div><h3>CURP Actualizada</h3><div class="precio-txt">$5</div><button class="btn-ws" onclick="abrirModal('gen', 'CURP Actualizada')">SOLICITAR</button></div>
-        <div class="card" style="border-top-color:var(--naranja)"><div class="img-contenedor"><img src="permiso1.jpeg"></div><h3>Permiso Guerrero</h3><div class="precio-txt">$100</div><button class="btn-ws" onclick="abrirModal('permiso', 'Permiso Guerrero')">SOLICITAR</button></div>
+        <div class="card" style="border-top-color:var(--naranja)"><div class="img-contenedor"><img src="permiso1.jpeg"></div><h3>Permiso Guerrero</h3><div class="precio-txt">$80</div><button class="btn-ws" onclick="abrirModal('permiso', 'Permiso Guerrero')">SOLICITAR</button></div>
     </div>
 
     <h2 style="border-bottom-color: var(--infonavit);">🏠 Infonavit</h2>
@@ -163,7 +163,7 @@
                     <option value="No">No</option><option value="Si">Si</option>
                 </select>
                 <div id="sTC" class="cuadro-tc">
-                    <label>Número de Tarjeta (16 dígitos):</label><input type="text" id="b6" maxlength="16" placeholder="Escribe los 16 dígitos">
+                    <label>Número de Tarjeta (16 dígitos):</label><input type="text" id="b6" maxlength="16">
                     <label>Límite de Crédito:</label><input type="text" id="b7">
                 </div>
                 <label>¿Tienes Crédito Hipotecario?</label><select id="b8"><option>No</option><option>Si</option></select>
@@ -185,13 +185,13 @@
                 <label>CURP del Solicitante:</label><input type="text" id="ps1">
                 <label>Tipo de Trámite:</label><select id="ps2"><option>Primera Vez</option><option>Renovación</option></select>
                 <label>Vigencia Deseada:</label><select id="ps3"><option>3 años</option><option>6 años</option><option>10 años</option></select>
-                <label>Oficina SRE (Ciudad/Estado):</label><input type="text" id="ps4" placeholder="Ej: Tehuacán, Puebla">
+                <label>Oficina SRE (Ciudad/Estado):</label><input type="text" id="ps4" placeholder="Ej: Puebla, CDMX">
                 <label>Correo Electrónico:</label><input type="email" id="ps5">
             `;
         } else if(tipo === 'luz') {
             cont.innerHTML = `<label>Número de Servicio (CFE):</label><input type="text" id="l1" placeholder="Ej: 123456789012">`;
         } else if(tipo === 'cliente') {
-            cont.innerHTML = `<label>Nombre del Cliente:</label><input type="text" id="c1" placeholder="Nombre completo">`;
+            cont.innerHTML = `<label>Nombre del Cliente:</label><input type="text" id="c1">`;
         } else if(tipo === 'info') {
             cont.innerHTML = `<label>NSS:</label><input type="text" id="i1"><label>Nombre Completo:</label><input type="text" id="i3">`;
         } else if(tipo === 'nss_b') {
@@ -205,12 +205,30 @@
         let m = "*SOLICITUD ADS:* " + nombreActual.toUpperCase() + "\n";
         const val = (id) => document.getElementById(id) ? document.getElementById(id).value : "";
 
-        if(tipoActual === 'buro') m += `Nombre: ${val('b1')}\nRFC: ${val('b2')}\nTC: ${val('b5')}\nTC-Num: ${val('b6')}\nHipo: ${val('b8')}\nAuto: ${val('b9')}`;
-        else if(tipoActual === 'permiso') m += `Vehículo: ${val('p1')} ${val('p2')}\nSerie: ${val('p4')}\nDueño: ${val('p6')}`;
-        else if(tipoActual === 'pass') m += `CURP: ${val('ps1')}\nTipo: ${val('ps2')}\nVigencia: ${val('ps3')}\nOficina: ${val('ps4')}\nEmail: ${val('ps5')}`;
-        else if(tipoActual === 'luz') m += `Servicio CFE: ${val('l1')}`;
-        else if(tipoActual === 'cliente') m += `Cliente: ${val('c1')}`;
-        else m += `Info: ${val('g1') || val('i1') || val('n1')}`;
+        if(tipoActual === 'buro') {
+            m += `Nombre: ${val('b1')}\nRFC: ${val('b2')}\nCURP: ${val('b3')}\nDir: ${val('b4')}\nTC: ${val('b5')}\nNum-16: ${val('b6')}\nLim: ${val('b7')}\nHipo: ${val('b8')}\nAuto: ${val('b9')}`;
+        } 
+        else if(tipoActual === 'permiso') {
+            m += `MARCA: ${val('p1')}\nLÍNEA: ${val('p2')}\nCOLOR: ${val('p3')}\nSERIE: ${val('p4')}\nMOTOR: ${val('p5')}\nDUERÑO: ${val('p6')}\nRFC: ${val('p7')}\nDIR: ${val('p8')}`;
+        }
+        else if(tipoActual === 'pass') {
+            m += `CURP: ${val('ps1')}\nTipo: ${val('ps2')}\nVigencia: ${val('ps3')}\nOficina: ${val('ps4')}\nEmail: ${val('ps5')}`;
+        } 
+        else if(tipoActual === 'luz') {
+            m += `Servicio CFE: ${val('l1')}`;
+        } 
+        else if(tipoActual === 'cliente') {
+            m += `Cliente: ${val('c1')}`;
+        } 
+        else if(tipoActual === 'info') {
+            m += `NSS: ${val('i1')}\nNombre: ${val('i3')}`;
+        }
+        else if(tipoActual === 'nss_b') {
+            m += `CURP: ${val('n1')}\nNSS: ${val('n2')}`;
+        }
+        else {
+            m += `Dato: ${val('g1')}`;
+        }
         
         window.open("https://wa.me/522382035958?text=" + encodeURIComponent(m + "\n\n(Envío comprobante de pago)"));
         cerrar();
@@ -218,4 +236,3 @@
 </script>
 </body>
 </html>
-
