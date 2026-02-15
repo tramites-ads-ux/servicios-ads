@@ -3,351 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trámites y Servicios ADS</title>
+    <title>ADS Servicios Digitales</title>
     <style>
         :root {
             --azul-oscuro: #003366;
             --verde-ws: #25d366;
             --naranja: #e67e22;
-            --blanco: #ffffff;
-            --gris-claro: #f4f7f6;
-            --amarillo-brillante: #ffcc00;
-            --morado-stream: #6c5ce7;
-            --gris-oscuro: #34495e;
-            --rojo-suave: #e74c3c;
-            --dorado: #d4af37;
+            --amarillo: #ffcc00;
+            --infonavit: #e31a2d;
+            --azteca: #006847;
+            --imss: #3498db;
         }
 
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; padding: 0; color: #333; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; margin: 0; padding: 0; font-size: 14px; }
         
         header { 
             background: linear-gradient(135deg, var(--azul-oscuro), #00509d); 
-            color: white; text-align: center; padding: 30px 20px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            color: white; text-align: center; padding: 12px; 
         }
+        header h1 { margin: 0; font-size: 18px; letter-spacing: 1px; }
 
-        /* --- ESTILO DE IMAGENES Y ANIMACIÓN --- */
-        .img-contenedor {
-            width: 100%; height: 120px; margin-bottom: 10px;
-            border-radius: 10px; background: #f9f9f9;
-            display: flex; align-items: center; justify-content: center; overflow: hidden;
+        .banner-pago {
+            max-width: 900px; margin: 8px auto; 
+            background: linear-gradient(90deg, #004d35, #006847, #004d35);
+            background-size: 200% auto; animation: shine 5s linear infinite;
+            padding: 6px 15px; border-radius: 8px; color: white;
+            display: flex; align-items: center; justify-content: space-between;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1); flex-wrap: wrap; gap: 10px;
         }
-        .img-contenedor img {
-            max-width: 100%; max-height: 100%; object-fit: contain;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        /* Esta clase hace que la imagen salte y gire un poco */
-        .animar-imagen { transform: scale(1.2) rotate(5deg); }
+        @keyframes shine { to { background-position: 200% center; } }
+        .pago-info strong { font-size: 11px; color: var(--amarillo); }
+        .pago-numero { font-family: monospace; font-size: 15px; font-weight: bold; background: rgba(0,0,0,0.2); padding: 3px 8px; border-radius: 4px; }
+        .btn-copiar-mini { background: white; color: var(--azteca); border: none; padding: 5px 12px; border-radius: 4px; font-size: 10px; font-weight: bold; cursor: pointer; }
 
-        .barra-confianza {
-            background: #fff; padding: 12px 0; text-align: center; font-size: 13px;
-            display: flex; justify-content: space-around; border-bottom: 2px solid #27ae60; font-weight: bold; flex-wrap: wrap; gap: 10px;
-        }
+        .container { width: 95%; max-width: 1100px; margin: auto; padding-bottom: 50px; }
+        .contenedor-busqueda { margin: 10px auto; max-width: 400px; }
+        #buscador { width: 100%; padding: 8px 15px; border-radius: 20px; border: 1px solid #ccc; outline: none; box-sizing: border-box; }
 
-        .aviso-volumen {
-            background: var(--amarillo-brillante); color: #000; text-align: center;
-            padding: 10px; font-weight: bold; font-size: 14px; border-radius: 10px;
-            margin: 10px auto; max-width: 900px; border: 2px dashed #000;
-        }
-
-        .container { width: 95%; max-width: 1100px; margin: 20px auto; padding-bottom: 80px; }
-
-        .seccion-pasos {
-            background: var(--blanco); padding: 30px; border-radius: 25px; margin-bottom: 35px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08); text-align: center;
-            position: relative; overflow: hidden;
-        }
-        .seccion-pasos::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
-            background: linear-gradient(to right, var(--verde-ws), var(--azul-oscuro), var(--naranja));
-        }
-
-        .ruta-contenedor {
-            display: flex; justify-content: space-between; align-items: flex-start;
-            flex-wrap: wrap; margin-top: 30px; position: relative;
-        }
-
-        .paso-item { flex: 1; min-width: 150px; padding: 15px; position: relative; z-index: 2; }
-
-        .icono-paso {
-            width: 60px; height: 60px; background: var(--gris-claro); 
-            border: 3px solid var(--azul-oscuro); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 15px; font-size: 28px; transition: transform 0.3s;
-        }
-        .paso-item:hover .icono-paso { transform: scale(1.1) rotate(10deg); background: var(--amarillo-brillante); }
-
-        .paso-item h4 { margin: 10px 0 5px; color: var(--azul-oscuro); font-size: 16px; }
-        .paso-item p { font-size: 13px; color: #666; line-height: 1.4; }
-
-        h2 { text-align: center; color: var(--azul-oscuro); margin-top: 40px; text-transform: uppercase; border-bottom: 2px solid #27ae60; display: inline-block; width: 100%; padding-bottom: 10px; }
+        h2 { font-size: 14px; color: var(--azul-oscuro); margin: 20px 0 8px; text-align: center; border-bottom: 1px solid #ddd; padding-bottom: 4px; text-transform: uppercase; }
         
-        .grid-servicios { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-top: 20px; }
+        .grid-servicios { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
         
         .card { 
-            background: var(--blanco); padding: 20px; border-radius: 15px; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center; 
-            border-top: 5px solid #27ae60;
-            display: flex; flex-direction: column; justify-content: space-between;
+            background: white; padding: 12px; border-radius: 10px; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05); text-align: center; 
+            border-top: 3px solid #27ae60; transition: 0.2s;
         }
-        .card.especial { border-top-color: var(--naranja); }
-        .card.imss { border-top-color: #3498db; }
-        .card.streaming { border-top-color: var(--morado-stream); }
-        .card.correccion { border-top-color: var(--rojo-suave); }
+        .img-contenedor { height: 55px; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; }
+        .img-contenedor img { max-height: 100%; max-width: 100%; object-fit: contain; }
+        h3 { font-size: 12px; margin: 4px 0; min-height: 32px; display: flex; align-items: center; justify-content: center; color: #444; line-height: 1.2; }
+        .precio-txt { font-size: 18px; font-weight: bold; color: #27ae60; margin: 6px 0; }
+        .btn-ws { background: var(--verde-ws); color: white; border: none; padding: 8px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 100%; font-size: 11px; }
 
-        .precio-txt { font-size: 26px; font-weight: bold; color: #27ae60; margin: 15px 0; }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(3px); }
+        .modal-box { background: var(--azul-oscuro); color: white; width: 90%; max-width: 450px; padding: 20px; border-radius: 12px; max-height: 95vh; overflow-y: auto; }
+        .form-datos label { font-weight: bold; display: block; margin-top: 10px; font-size: 12px; color: #cbd5e0; }
+        .form-datos input, .form-datos textarea, .form-datos select { width: 100%; padding: 8px; margin-top: 4px; border-radius: 5px; border: none; box-sizing: border-box; font-size: 13px; }
         
-        .btn-ws { 
-            background-color: var(--verde-ws); color: white; border: none; 
-            padding: 14px; border-radius: 10px; font-weight: bold; 
-            cursor: pointer; width: 100%; font-size: 15px;
-        }
-
-        .banner-personalizado {
-            background: linear-gradient(rgba(0,51,102,0.9), rgba(0,51,102,0.9)), url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80');
-            background-size: cover; background-position: center;
-            color: white; padding: 40px; border-radius: 20px; margin-top: 40px; text-align: center;
-            border-left: 10px solid var(--dorado); box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-        }
-        .banner-personalizado h3 { font-size: 24px; margin-bottom: 10px; color: var(--dorado); }
-        .banner-personalizado p { font-size: 16px; margin-bottom: 20px; color: #ecf0f1; }
-        .btn-formal {
-            background: var(--dorado); color: #000; border: none; padding: 15px 30px;
-            border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 16px;
-            text-transform: uppercase; transition: 0.3s;
-        }
-        .btn-formal:hover { background: #b8972f; transform: translateY(-3px); }
-
-        .seccion-pago { background: #fff; padding: 30px; border-radius: 20px; text-align: center; margin-top: 50px; border: 1px solid #ddd; }
-        .tarjeta { background: linear-gradient(135deg, #1d1d1d, #434343); color: white; padding: 25px; border-radius: 15px; text-align: left; display: inline-block; width: 100%; max-width: 320px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
-        .btn-copiar { background: var(--verde-ws); color: white; border: none; padding: 8px 12px; border-radius: 5px; font-size: 12px; cursor: pointer; margin-top: 10px; font-weight: bold; }
-
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
-        .modal-box { background: white; width: 90%; max-width: 500px; padding: 25px; border-radius: 20px; text-align: left; max-height: 90vh; overflow-y: auto; }
-        
-        .form-datos label { font-weight: bold; display: block; margin-top: 12px; font-size: 14px; }
-        .form-datos input, .form-datos textarea, .form-datos select { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
-        
-        .btn-confirmar { background-color: var(--verde-ws); color: white; border: none; padding: 18px; border-radius: 12px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 20px; font-size: 17px; }
-        .btn-cancelar { background: none; color: #dc3545; border: none; margin-top: 10px; cursor: pointer; width: 100%; text-decoration: underline; font-weight: bold; text-align: center; }
-
-        .ws-flotante { position: fixed; bottom: 20px; right: 20px; background: var(--verde-ws); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 1000; text-decoration: none; }
+        .cuadro-tc { background: rgba(255,255,255,0.05); border: 1px solid var(--amarillo); padding: 12px; border-radius: 8px; margin-top: 10px; display: none; }
+        .btn-confirmar { background: var(--verde-ws); color: white; border: none; padding: 14px; border-radius: 8px; width: 100%; margin-top: 15px; font-weight: bold; cursor: pointer; }
+        .btn-cancelar { background: rgba(255,255,255,0.1); color: #ff9f9f; border: none; padding: 10px; border-radius: 8px; margin-top: 8px; cursor: pointer; width: 100%; font-size: 12px; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>TRAMITES Y SERVICIOS ADS</h1>
-    <p>Documentación Digital y Gestoría Profesional</p>
+    <h1>ADS SERVICIOS DIGITALES</h1>
 </header>
 
-<div class="barra-confianza">
-    <span>🛡️ Trámites 100% Legales</span>
-    <span>⚡ Entrega el mismo día</span>
-    <span>🔒 Privacidad Total</span>
-    <span>⭐ Servicio Garantizado</span>
+<div class="banner-pago">
+    <div class="pago-info"><strong>BANCO AZTECA</strong><br><span>Andres Garcia</span></div>
+    <div class="pago-numero">5263 5401 6196 2200</div>
+    <button class="btn-copiar-mini" onclick="navigator.clipboard.writeText('5263540161962200'); alert('Copiado')">COPIAR</button>
 </div>
 
 <div class="container">
-    
-    <div class="aviso-volumen">
-        🚀 ¿Necesitas varios trámites? ¡SI TIENES VOLUMEN EL PRECIO PUEDE MEJORAR! Pregunta por nuestros descuentos.
-    </div>
-
-    <div class="seccion-pasos">
-        <h3 style="color: var(--azul-oscuro); margin-top: 0; font-size: 22px;">¡Tu documento en 4 simples pasos! ✨</h3>
-        <div class="ruta-contenedor">
-            <div class="paso-item">
-                <div class="icono-paso">🔎</div>
-                <h4>¡Elígelo!</h4>
-                <p>Busca el trámite que necesitas abajo.</p>
-            </div>
-            <div class="paso-item">
-                <div class="icono-paso">📝</div>
-                <h4>¡Regístrate!</h4>
-                <p>Ingresa tus datos de forma segura.</p>
-            </div>
-            <div class="paso-item">
-                <div class="icono-paso">💸</div>
-                <h4>¡Paga!</h4>
-                <p>Deposita y envía foto de tu ticket.</p>
-            </div>
-            <div class="paso-item">
-                <div class="icono-paso">📩</div>
-                <h4>¡Recibe!</h4>
-                <p>¡Listo! Te lo enviamos a tu WhatsApp.</p>
-            </div>
-        </div>
+    <div class="contenedor-busqueda">
+        <input type="text" id="buscador" onkeyup="buscar()" placeholder="🔍 Buscar entre los 26 trámites...">
     </div>
 
     <h2>📄 Trámites y Documentos</h2>
     <div class="grid-servicios">
-        <div class="card"><div class="img-contenedor"><img src="acta-nacimiento.png"></div><h3>Acta de Nacimiento</h3><div class="precio-txt">$45.00</div><button class="btn-ws" onclick="abrirModal('acta', this)">RELLENAR DATOS</button></div>
-        <div class="card correccion"><div class="img-contenedor"><img src="correccion.png"></div><h3>Corrección de Acta</h3><div class="precio-txt">Cotizar</div><button class="btn-ws" onclick="abrirModal('correccion_acta', this)">RELLENAR DATOS</button></div>
-        <div class="card"><div class="img-contenedor"><img src="matrimonio.png"></div><h3>Acta de Matrimonio</h3><div class="precio-txt">$45.00</div><button class="btn-ws" onclick="abrirModal('matrimonio', this)">RELLENAR DATOS</button></div>
-        <div class="card"><div class="img-contenedor"><img src="defuncion.png"></div><h3>Acta de Defunción</h3><div class="precio-txt">$45.00</div><button class="btn-ws" onclick="abrirModal('defuncion', this)">RELLENAR DATOS</button></div>
-        <div class="card"><div class="img-contenedor"><img src="divorcio.png"></div><h3>Acta de Divorcio</h3><div class="precio-txt">$45.00</div><button class="btn-ws" onclick="abrirModal('divorcio', this)">RELLENAR DATOS</button></div>
-        <div class="card" style="border-top-color: #9b59b6;"><div class="img-contenedor"><img src="curp.jpg"></div><h3>Actualización CURP</h3><div class="precio-txt">$5.00</div><button class="btn-ws" onclick="abrirModal('curp_act', this)">RELLENAR DATOS</button></div>
-        <div class="card"><div class="img-contenedor"><img src="rfc.png"></div><h3>Constancia RFC</h3><div class="precio-txt">$180.00</div><button class="btn-ws" onclick="abrirModal('rfc', this)">RELLENAR DATOS</button></div>
-        <div class="card"><div class="img-contenedor"><img src="buro.png"></div><h3>Buró de Crédito</h3><div class="precio-txt">$60.00</div><button class="btn-ws" onclick="abrirModal('buro', this)">RELLENAR DATOS</button></div>
-        <div class="card"><div class="img-contenedor"><img src="pasaporte.png"></div><h3>Cita Pasaporte</h3><div class="precio-txt">$150.00</div><button class="btn-ws" onclick="abrirModal('pasaporte', this)">RELLENAR DATOS</button></div>
-        <div class="card especial"><div class="img-contenedor"><img src="permiso.jpeg"></div><h3>Permiso Guerrero (Sin Placas)</h3><div class="precio-txt">$80.00</div><button class="btn-ws" onclick="abrirModal('permiso', this)">RELLENAR DATOS</button></div>
+        <div class="card"><div class="img-contenedor"><img src="acta-nacimiento.png"></div><h3>Acta de Nacimiento</h3><div class="precio-txt">$45</div><button class="btn-ws" onclick="abrirModal('gen', 'Acta de Nacimiento')">SOLICITAR</button></div>
+        <div class="card"><div class="img-contenedor"><img src="matrimonio.png"></div><h3>Acta de Matrimonio</h3><div class="precio-txt">$45</div><button class="btn-ws" onclick="abrirModal('gen', 'Acta de Matrimonio')">SOLICITAR</button></div>
+        <div class="card"><div class="img-contenedor"><img src="defuncion.png"></div><h3>Acta de Defunción</h3><div class="precio-txt">$45</div><button class="btn-ws" onclick="abrirModal('gen', 'Acta de Defunción')">SOLICITAR</button></div>
+        <div class="card"><div class="img-contenedor"><img src="divorcio.png"></div><h3>Acta de Divorcio</h3><div class="precio-txt">$45</div><button class="btn-ws" onclick="abrirModal('gen', 'Acta de Divorcio')">SOLICITAR</button></div>
+        <div class="card"><div class="img-contenedor"><img src="buro.png"></div><h3>Buró de Crédito</h3><div class="precio-txt">$60</div><button class="btn-ws" onclick="abrirModal('buro', 'Buró de Crédito')">SOLICITAR</button></div>
+        <div class="card"><div class="img-contenedor"><img src="pasaporte.png"></div><h3>Cita Pasaporte</h3><div class="precio-txt">$150</div><button class="btn-ws" onclick="abrirModal('pass', 'Cita Pasaporte')">SOLICITAR</button></div>
+        <div class="card"><div class="img-contenedor"><img src="rfc.png"></div><h3>Constancia RFC</h3><div class="precio-txt">$180</div><button class="btn-ws" onclick="abrirModal('gen', 'Constancia RFC')">SOLICITAR</button></div>
+        <div class="card"><div class="img-contenedor"><img src="curp.jpg"></div><h3>CURP Actualizada</h3><div class="precio-txt">$5</div><button class="btn-ws" onclick="abrirModal('gen', 'CURP Actualizada')">SOLICITAR</button></div>
+        <div class="card" style="border-top-color:var(--naranja)"><div class="img-contenedor"><img src="permiso1.jpeg"></div><h3>Permiso Guerrero</h3><div class="precio-txt">$80</div><button class="btn-ws" onclick="abrirModal('permiso', 'Permiso Guerrero')">SOLICITAR</button></div>
     </div>
 
-    <h2>🏥 Servicios IMSS / CFE</h2>
+    <h2 style="border-bottom-color: var(--infonavit);">🏠 Infonavit</h2>
     <div class="grid-servicios">
-        <div class="card imss"><div class="img-contenedor"><img src="nss.png"></div><h3>NSS (Seguro)</h3><div class="precio-txt">$20.00</div><button class="btn-ws" onclick="abrirModal('nss', this)">RELLENAR DATOS</button></div>
-        <div class="card imss"><div class="img-contenedor"><img src="semanas cotizadas.png"></div><h3>Semanas Cotizadas</h3><div class="precio-txt">$20.00</div><button class="btn-ws" onclick="abrirModal('semanas', this)">RELLENAR DATOS</button></div>
-        <div class="card imss"><div class="img-contenedor"><img src="vigencia de derechos.jpg"></div><h3>Vigencia de Derechos</h3><div class="precio-txt">$20.00</div><button class="btn-ws" onclick="abrirModal('vigencia', this)">RELLENAR DATOS</button></div>
-        <div class="card imss"><div class="img-contenedor"><img src="no derechohabiente.jpg"></div><h3>Constancia de NO Derechohabiencia</h3><div class="precio-txt">$15.00</div><button class="btn-ws" onclick="abrirModal('no_derecho', this)">RELLENAR DATOS</button></div>
-        <div class="card"><div class="img-contenedor"><img src="cfe.png"></div><h3>Recibo de Luz CFE</h3><div class="precio-txt">$5.00</div><button class="btn-ws" onclick="abrirModal('cfe', this)">RELLENAR DATOS</button></div>
+        <div class="card" style="border-top-color:var(--infonavit)"><div class="img-contenedor"><img src="infonavit.png"></div><h3>Aviso de Retención</h3><div class="precio-txt">$100</div><button class="btn-ws" onclick="abrirModal('info', 'Aviso de Retención')">SOLICITAR</button></div>
+        <div class="card" style="border-top-color:var(--infonavit)"><div class="img-contenedor"><img src="infonavit.png"></div><h3>Aviso de Suspensión</h3><div class="precio-txt">$100</div><button class="btn-ws" onclick="abrirModal('info', 'Aviso de Suspensión')">SOLICITAR</button></div>
+        <div class="card" style="border-top-color:var(--infonavit)"><div class="img-contenedor"><img src="infonavit.png"></div><h3>Saldos y Movimientos</h3><div class="precio-txt">$100</div><button class="btn-ws" onclick="abrirModal('info', 'Saldos y Movimientos')">SOLICITAR</button></div>
+        <div class="card" style="border-top-color:var(--infonavit)"><div class="img-contenedor"><img src="infonavit.png"></div><h3>Estado de Cuenta</h3><div class="precio-txt">$100</div><button class="btn-ws" onclick="abrirModal('info', 'Estado de Cuenta')">SOLICITAR</button></div>
+        <div class="card" style="border-top-color:var(--infonavit)"><div class="img-contenedor"><img src="infonavit.png"></div><h3>Histórico de Crédito</h3><div class="precio-txt">$100</div><button class="btn-ws" onclick="abrirModal('info', 'Histórico de Crédito')">SOLICITAR</button></div>
+        <div class="card" style="border-top-color:var(--infonavit)"><div class="img-contenedor"><img src="infonavit.png"></div><h3>Restablecer Contraseña</h3><div class="precio-txt">$100</div><button class="btn-ws" onclick="abrirModal('info', 'Restablecer Contraseña')">SOLICITAR</button></div>
     </div>
 
-    <h2>📺 Cuentas de Streaming</h2>
+    <h2 style="border-bottom-color: var(--imss);">🏥 IMSS y CFE</h2>
     <div class="grid-servicios">
-        <div class="card streaming"><div class="img-contenedor"><img src="netflix.jpg"></div><h3>Netflix</h3><div class="precio-txt">$80.00</div><button class="btn-ws" onclick="abrirModal('stream_netflix', this)">SOLICITAR CUENTA</button></div>
-        <div class="card streaming"><div class="img-contenedor"><img src="disney.jpg"></div><h3>Disney+ / Star+</h3><div class="precio-txt">$50.00</div><button class="btn-ws" onclick="abrirModal('stream_disney', this)">SOLICITAR CUENTA</button></div>
-        <div class="card streaming"><div class="img-contenedor"><img src="max.jpg"></div><h3>HBO Max</h3><div class="precio-txt">$50.00</div><button class="btn-ws" onclick="abrirModal('stream_hbo', this)">SOLICITAR CUENTA</button></div>
-        <div class="card streaming"><div class="img-contenedor"><img src="prime.png"></div><h3>Amazon Prime</h3><div class="precio-txt">$50.00</div><button class="btn-ws" onclick="abrirModal('stream_prime', this)">SOLICITAR CUENTA</button></div>
-        <div class="card streaming"><div class="img-contenedor"><img src="vix.png"></div><h3>VIX Premium</h3><div class="precio-txt">$50.00</div><button class="btn-ws" onclick="abrirModal('stream_vix', this)">SOLICITAR CUENTA</button></div>
+        <div class="card" style="border-top-color:var(--imss)"><div class="img-contenedor"><img src="nss.png"></div><h3>NSS (Número Seguro)</h3><div class="precio-txt">$20</div><button class="btn-ws" onclick="abrirModal('gen', 'NSS')">SOLICITAR</button></div>
+        <div class="card" style="border-top-color:var(--imss)"><div class="img-contenedor"><img src="semanas cotizadas.png"></div><h3>Semanas Cotizadas</h3><div class="precio-txt">$20</div><button class="btn-ws" onclick="abrirModal('nss_b', 'Semanas Cotizadas')">SOLICITAR</button></div>
+        <div class="card" style="border-top-color:var(--imss)"><div class="img-contenedor"><img src="vigencia de derechos.jpg"></div><h3>Vigencia de Derechos</h3><div class="precio-txt">$20</div><button class="btn-ws" onclick="abrirModal('nss_b', 'Vigencia de Derechos')">SOLICITAR</button></div>
+        <div class="card" style="border-top-color:var(--imss)"><div class="img-contenedor"><img src="no derechohabiente.jpg"></div><h3>No Derechohabiencia</h3><div class="precio-txt">$15</div><button class="btn-ws" onclick="abrirModal('gen', 'No Derechohabiencia')">SOLICITAR</button></div>
+        <div class="card" style="border-top-color:var(--imss)"><div class="img-contenedor"><img src="cartilla.jpeg"></div><h3>Cartilla IMSS</h3><div class="precio-txt">$20</div><button class="btn-ws" onclick="abrirModal('gen', 'Cartilla IMSS')">SOLICITAR</button></div>
+        <div class="card" style="border-top-color:#f1c40f"><div class="img-contenedor"><img src="cfe.png"></div><h3>Recibo CFE</h3><div class="precio-txt">$5</div><button class="btn-ws" onclick="abrirModal('luz', 'Recibo CFE')">SOLICITAR</button></div>
     </div>
 
-    <div class="banner-personalizado">
-        <h3>¿Requiere un Trámite Especializado?</h3>
-        <p>Si el servicio que busca no se encuentra en nuestro catálogo digital, póngase en contacto con uno de nuestros asesores para una atención personalizada y profesional.</p>
-        <button class="btn-formal" onclick="abrirModal('otro_tramite', this)">SOLICITAR ASESORÍA PERSONALIZADA</button>
-    </div>
-
-    <div class="seccion-pago">
-        <h3>💳 Método de Pago Directo</h3>
-        <div class="tarjeta">
-            <small>BANCO AZTECA</small><br>
-            <strong>ANDRES GARCIA</strong><br><br>
-            <span id="numCuenta" style="font-family: monospace; font-size: 1.2em;">4027 6653 1037 4161</span><br>
-            <button class="btn-copiar" onclick="copiarCuenta()">📋 COPIAR NÚMERO</button>
-        </div>
+    <h2 style="border-bottom-color: #6c5ce7;">📺 Streaming</h2>
+    <div class="grid-servicios">
+        <div class="card" style="border-top-color:#6c5ce7"><div class="img-contenedor"><img src="netflix.jpg"></div><h3>Netflix</h3><div class="precio-txt">$80</div><button class="btn-ws" onclick="abrirModal('cliente', 'Netflix')">SOLICITAR</button></div>
+        <div class="card" style="border-top-color:#6c5ce7"><div class="img-contenedor"><img src="disney.jpg"></div><h3>Disney+</h3><div class="precio-txt">$50</div><button class="btn-ws" onclick="abrirModal('cliente', 'Disney+')">SOLICITAR</button></div>
+        <div class="card" style="border-top-color:#6c5ce7"><div class="img-contenedor"><img src="max.jpg"></div><h3>HBO Max</h3><div class="precio-txt">$50</div><button class="btn-ws" onclick="abrirModal('cliente', 'HBO Max')">SOLICITAR</button></div>
+        <div class="card" style="border-top-color:#6c5ce7"><div class="img-contenedor"><img src="prime.png"></div><h3>Amazon Prime</h3><div class="precio-txt">$50</div><button class="btn-ws" onclick="abrirModal('cliente', 'Amazon Prime')">SOLICITAR</button></div>
+        <div class="card" style="border-top-color:#6c5ce7"><div class="img-contenedor"><img src="vix.png"></div><h3>VIX Premium</h3><div class="precio-txt">$50</div><button class="btn-ws" onclick="abrirModal('cliente', 'VIX')">SOLICITAR</button></div>
     </div>
 </div>
 
 <div id="modalTramite" class="modal-overlay">
     <div class="modal-box">
-        <h3 id="modalTitulo" style="text-align:center;">DATOS DEL TRÁMITE</h3>
-        <div id="infoEspecial" style="background:#fff3cd; color:#856404; padding:10px; border-radius:8px; margin-bottom:15px; font-size:13px; display:none; border:1px solid #ffeeba;"></div>
+        <h3 id="modalTitulo" style="text-align:center; color: var(--amarillo); margin:0 0 15px 0;"></h3>
         <div id="contenedorCampos" class="form-datos"></div>
-        <button class="btn-confirmar" onclick="procesarEnvio()">ENVIAR A WHATSAPP</button>
-        <button class="btn-cancelar" onclick="cerrarModal()">CANCELAR</button>
+        <button class="btn-confirmar" onclick="enviar()">ENVIAR A WHATSAPP</button>
+        <button class="btn-cancelar" onclick="cerrar()">CANCELAR Y REGRESAR</button>
     </div>
 </div>
 
-<a href="https://wa.me/522382035958" class="ws-flotante" target="_blank">💬</a>
-
 <script>
-    let tipoTramite = "";
-    function cerrarModal() { document.getElementById('modalTramite').style.display = 'none'; }
+    let tipoActual = ""; let nombreActual = "";
     
-    function copiarCuenta() {
-        navigator.clipboard.writeText("4027665310374161");
-        alert("Número copiado con éxito.");
+    function buscar() {
+        let q = document.getElementById('buscador').value.toLowerCase();
+        let cards = document.getElementsByClassName('card');
+        for (let c of cards) { c.style.display = c.innerText.toLowerCase().includes(q) ? "" : "none"; }
     }
 
-    // He añadido el parámetro "btn" para localizar la imagen
-    function abrirModal(tipo, btn) {
-        tipoTramite = tipo;
+    function cerrar() { document.getElementById('modalTramite').style.display = 'none'; }
 
-        // --- LÓGICA DE MOVIMIENTO DE IMAGEN ---
-        if(btn) {
-            const card = btn.closest('.card') || btn.closest('.banner-personalizado');
-            if(card) {
-                const img = card.querySelector('.img-contenedor img');
-                if(img) {
-                    img.classList.add('animar-imagen');
-                    setTimeout(() => { img.classList.remove('animar-imagen'); }, 400);
-                }
-            }
-        }
-
+    function abrirModal(tipo, nombre) {
+        tipoActual = tipo; nombreActual = nombre;
         const cont = document.getElementById('contenedorCampos');
-        const info = document.getElementById('infoEspecial');
+        document.getElementById('modalTitulo').innerText = nombre.toUpperCase();
         cont.innerHTML = "";
-        info.style.display = "none";
         document.getElementById('modalTramite').style.display = 'flex';
 
-        if(tipo === 'acta' || tipo === 'matrimonio' || tipo === 'defuncion' || tipo === 'divorcio' || tipo === 'curp_act' || tipo === 'no_derecho') {
-            cont.innerHTML = '<label>CURP:</label><input type="text" id="d_curp" placeholder="Ingrese CURP">';
-        } else if(tipo === 'correccion_acta') {
-            info.innerHTML = "📸 <strong>IMPORTANTE:</strong> Al terminar, debes enviar foto del <strong>ACTA</strong> y de la <strong>CURP</strong> por WhatsApp.";
-            info.style.display = "block";
-            cont.innerHTML = `<label>CURP de la persona:</label><input type="text" id="c_curp"><label>Estado:</label><input type="text" id="c_estado"><label>Error a corregir:</label><textarea id="c_error" rows="2"></textarea>`;
-        } else if(tipo === 'buro') {
-            info.innerHTML = "📸 <strong>REQUISITO:</strong> Recuerda que debes enviarnos la foto de tu <strong>INE</strong> por WhatsApp.";
-            info.style.display = "block";
-            cont.innerHTML = `<label>RFC:</label><input type="text" id="b_rfc"><label>CURP:</label><input type="text" id="b_curp"><label>Tarjeta de Crédito (Opcional):</label><input type="text" id="b_tarjeta" placeholder="Número"><label>Límite de Crédito:</label><input type="text" id="b_limite" placeholder="Ej. $5000">`;
-        } else if(tipo === 'pasaporte') {
-            cont.innerHTML = `<label>CURP:</label><input type="text" id="p_curp"><label>Estado para la cita:</label><input type="text" id="p_estado"><label>Día de preferencia:</label><input type="date" id="p_dia"><label>Hora de preferencia:</label><input type="time" id="p_hora"><label>Vigencia del Pasaporte:</label><select id="p_vigencia"><option value="3 años">3 años</option><option value="6 años">6 años</option><option value="10 años">10 años</option></select>`;
-        } else if(tipo === 'permiso') {
-            info.innerHTML = "📸 <strong>REQUISITO:</strong> Debe adjuntar foto de la <strong>INE o la FACTURA</strong> por WhatsApp al finalizar.";
-            info.style.display = "block";
+        if(tipo === 'buro') {
             cont.innerHTML = `
-                <label>Marca:</label><input type="text" id="perm_marca">
-                <label>Modelo:</label><input type="text" id="perm_modelo">
-                <label>Línea:</label><input type="text" id="perm_linea">
-                <label>Número de Serie:</label><input type="text" id="perm_serie">
-                <label>Número de Motor:</label><input type="text" id="perm_motor">
-                <label>Nombre del Propietario:</label><input type="text" id="perm_propietario">
-                <label>Dirección del Propietario:</label><textarea id="perm_direccion" rows="2"></textarea>`;
-        } else if(tipo === 'otro_tramite') {
-            cont.innerHTML = '<label>Describa el servicio requerido:</label><textarea id="d_otro" rows="3"></textarea><label>Nombre completo:</label><input type="text" id="d_nombre_otro">';
-        } else if(tipo.startsWith('stream_')) {
-            cont.innerHTML = '<label>Nombre del Cliente:</label><input type="text" id="d_cliente">';
-        } else if(tipo === 'rfc') {
-            cont.innerHTML = '<label>CURP o RFC:</label><input type="text" id="d_id">';
-        } else if(tipo === 'nss') {
-            cont.innerHTML = '<label>CURP:</label><input type="text" id="d_curp">';
-        } else if(tipo === 'semanas' || tipo === 'vigencia') {
-            cont.innerHTML = '<label>CURP:</label><input type="text" id="d_curp"><label>NSS:</label><input type="text" id="d_nss">';
-        } else if(tipo === 'cfe') {
-            cont.innerHTML = '<label>Número de Servicio:</label><input type="text" id="d_servicio">';
+                <label>Nombre Completo:</label><input type="text" id="b1">
+                <label>RFC:</label><input type="text" id="b2">
+                <label>CURP:</label><input type="text" id="b3">
+                <label>Dirección Completa:</label><textarea id="b4" rows="2"></textarea>
+                <label>¿Tienes Tarjeta de Crédito?</label>
+                <select id="b5" onchange="document.getElementById('sTC').style.display=(this.value=='Si'?'block':'none')">
+                    <option value="No">No</option><option value="Si">Si</option>
+                </select>
+                <div id="sTC" class="cuadro-tc">
+                    <label>Número de Tarjeta (16 dígitos):</label><input type="text" id="b6" maxlength="16">
+                    <label>Límite de Crédito:</label><input type="text" id="b7">
+                </div>
+                <label>¿Tienes Crédito Hipotecario?</label><select id="b8"><option>No</option><option>Si</option></select>
+                <label>¿Tienes Crédito Automotriz?</label><select id="b9"><option>No</option><option>Si</option></select>
+            `;
+        } else if(tipo === 'permiso') {
+            cont.innerHTML = `
+                <label>Marca:</label><input type="text" id="p1">
+                <label>Línea/Modelo:</label><input type="text" id="p2">
+                <label>Color:</label><input type="text" id="p3">
+                <label>Número de Serie (VIN):</label><input type="text" id="p4">
+                <label>Número de Motor:</label><input type="text" id="p5">
+                <label>Nombre del Propietario:</label><input type="text" id="p6">
+                <label>RFC Propietario:</label><input type="text" id="p7">
+                <label>Dirección Propietario:</label><textarea id="p8" rows="2"></textarea>
+            `;
+        } else if(tipo === 'pass') {
+            cont.innerHTML = `
+                <label>CURP:</label><input type="text" id="ps1">
+                <label>Trámite:</label><select id="ps2"><option>Primera Vez</option><option>Renovación</option></select>
+                <label>Vigencia:</label><select id="ps3"><option>3 años</option><option>6 años</option><option>10 años</option></select>
+                <label>Oficina SRE:</label><input type="text" id="ps4">
+                <label>Correo:</label><input type="email" id="ps5">
+            `;
+        } else if(tipo === 'luz') {
+            cont.innerHTML = `<label>Número de Servicio (CFE):</label><input type="text" id="l1">`;
+        } else if(tipo === 'cliente') {
+            cont.innerHTML = `<label>Nombre del Cliente:</label><input type="text" id="c1">`;
+        } else if(tipo === 'info') {
+            cont.innerHTML = `<label>NSS:</label><input type="text" id="i1"><label>Nombre Completo:</label><input type="text" id="i3">`;
+        } else if(tipo === 'nss_b') {
+            cont.innerHTML = `<label>CURP:</label><input type="text" id="n1"><label>NSS:</label><input type="text" id="n2">`;
+        } else {
+            cont.innerHTML = `<label>Dato (CURP o Nombre):</label><input type="text" id="g1">`;
         }
     }
 
-    function procesarEnvio() {
-        let msg = "Hola, ";
-        const get = (id) => document.getElementById(id) ? document.getElementById(id).value : "";
-        
-        if(tipoTramite === 'permiso') {
-            msg += `solicito PERMISO PARA CIRCULAR (GUERRERO):
-            - Marca: ${get('perm_marca')}
-            - Modelo: ${get('perm_modelo')}
-            - Línea: ${get('perm_linea')}
-            - Serie: ${get('perm_serie')}
-            - Motor: ${get('perm_motor')}
-            - Propietario: ${get('perm_propietario')}
-            - Dirección: ${get('perm_direccion')}
-            (Adjunto foto de INE o Factura)`;
-        } else if(tipoTramite === 'pasaporte') {
-            msg += `solicito CITA PARA PASAPORTE:
-            - CURP: ${get('p_curp')}
-            - Estado: ${get('p_estado')}
-            - Día: ${get('p_dia')}
-            - Hora: ${get('p_hora')}
-            - Vigencia: ${get('p_vigencia')}`;
-        } else if(tipoTramite === 'buro') {
-            msg += `solicito BURÓ DE CRÉDITO:
-            - RFC: ${get('b_rfc')}
-            - CURP: ${get('b_curp')}
-            - Tarjeta: ${get('b_tarjeta')}
-            - Límite: ${get('b_limite')}
-            (Envío foto de INE)`;
-        } else if(tipoTramite === 'otro_tramite') {
-            msg += `solicito ASESORÍA PARA GESTIÓN ESPECIAL:
-            - Detalle: ${get('d_otro')}
-            - Cliente: ${get('d_nombre_otro')}`;
-        } else {
-            msg += "solicito trámite: " + tipoTramite + ". Datos: " + (get('d_curp') || get('d_cliente') || get('d_id') || get('d_servicio'));
-        }
+    function enviar() {
+        let m = "*SOLICITUD ADS:* " + nombreActual.toUpperCase() + "\n";
+        const val = (id) => document.getElementById(id) ? document.getElementById(id).value : "";
 
-        window.open("https://wa.me/522382035958?text=" + encodeURIComponent(msg));
-        cerrarModal();
+        if(tipoActual === 'buro') {
+            m += `Nombre: ${val('b1')}\n`;
+            m += `RFC: ${val('b2')}\n`;
+            m += `CURP: ${val('b3')}\n`;
+            m += `Dirección: ${val('b4')}\n`;
+            m += `Tiene TC: ${val('b5')}\n`;
+            m += `TC (16 dig): ${val('b6')}\n`;
+            m += `Límite: ${val('b7')}\n`;
+            m += `Hipotecario: ${val('b8')}\n`;
+            m += `Automotriz: ${val('b9')}`;
+        } 
+        else if(tipoActual === 'permiso') {
+            m += `MARCA: ${val('p1')}\n`;
+            m += `LÍNEA: ${val('p2')}\n`;
+            m += `COLOR: ${val('p3')}\n`;
+            m += `SERIE: ${val('p4')}\n`;
+            m += `MOTOR: ${val('p5')}\n`;
+            m += `DUEÑO: ${val('p6')}\n`;
+            m += `RFC: ${val('p7')}\n`;
+            m += `DIRECCIÓN: ${val('p8')}`;
+        }
+        else if(tipoActual === 'pass') {
+            m += `CURP: ${val('ps1')}\n`;
+            m += `Trámite: ${val('ps2')}\n`;
+            m += `Vigencia: ${val('ps3')}\n`;
+            m += `Oficina: ${val('ps4')}\n`;
+            m += `Email: ${val('ps5')}`;
+        } 
+        else if(tipoActual === 'luz') {
+            m += `Servicio CFE: ${val('l1')}`;
+        } 
+        else if(tipoActual === 'cliente') {
+            m += `Cliente: ${val('c1')}`;
+        } 
+        else if(tipoActual === 'info') {
+            m += `NSS: ${val('i1')}\nNombre: ${val('i3')}`;
+        }
+        else if(tipoActual === 'nss_b') {
+            m += `CURP: ${val('n1')}\nNSS: ${val('n2')}`;
+        }
+        else {
+            m += `Dato: ${val('g1')}`;
+        }
+        
+        window.open("https://wa.me/522382035958?text=" + encodeURIComponent(m + "\n\n(Envío comprobante de pago)"));
+        cerrar();
     }
 </script>
 </body>
