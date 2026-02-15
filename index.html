@@ -158,7 +158,7 @@
                 <label>RFC:</label><input type="text" id="b2">
                 <label>CURP:</label><input type="text" id="b3">
                 <label>Dirección Completa:</label><textarea id="b4" rows="2"></textarea>
-                <label>¿Tienes Tarjeta de Crédito Vigente?</label>
+                <label>¿Tienes Tarjeta de Crédito?</label>
                 <select id="b5" onchange="document.getElementById('sTC').style.display=(this.value=='Si'?'block':'none')">
                     <option value="No">No</option><option value="Si">Si</option>
                 </select>
@@ -182,14 +182,14 @@
             `;
         } else if(tipo === 'pass') {
             cont.innerHTML = `
-                <label>CURP del Solicitante:</label><input type="text" id="ps1">
-                <label>Tipo de Trámite:</label><select id="ps2"><option>Primera Vez</option><option>Renovación</option></select>
-                <label>Vigencia Deseada:</label><select id="ps3"><option>3 años</option><option>6 años</option><option>10 años</option></select>
-                <label>Oficina SRE (Ciudad/Estado):</label><input type="text" id="ps4" placeholder="Ej: Puebla, CDMX">
-                <label>Correo Electrónico:</label><input type="email" id="ps5">
+                <label>CURP:</label><input type="text" id="ps1">
+                <label>Trámite:</label><select id="ps2"><option>Primera Vez</option><option>Renovación</option></select>
+                <label>Vigencia:</label><select id="ps3"><option>3 años</option><option>6 años</option><option>10 años</option></select>
+                <label>Oficina SRE:</label><input type="text" id="ps4">
+                <label>Correo:</label><input type="email" id="ps5">
             `;
         } else if(tipo === 'luz') {
-            cont.innerHTML = `<label>Número de Servicio (CFE):</label><input type="text" id="l1" placeholder="Ej: 123456789012">`;
+            cont.innerHTML = `<label>Número de Servicio (CFE):</label><input type="text" id="l1">`;
         } else if(tipo === 'cliente') {
             cont.innerHTML = `<label>Nombre del Cliente:</label><input type="text" id="c1">`;
         } else if(tipo === 'info') {
@@ -206,13 +206,32 @@
         const val = (id) => document.getElementById(id) ? document.getElementById(id).value : "";
 
         if(tipoActual === 'buro') {
-            m += `Nombre: ${val('b1')}\nRFC: ${val('b2')}\nCURP: ${val('b3')}\nDir: ${val('b4')}\nTC: ${val('b5')}\nNum-16: ${val('b6')}\nLim: ${val('b7')}\nHipo: ${val('b8')}\nAuto: ${val('b9')}`;
+            m += `Nombre: ${val('b1')}\n`;
+            m += `RFC: ${val('b2')}\n`;
+            m += `CURP: ${val('b3')}\n`;
+            m += `Dirección: ${val('b4')}\n`;
+            m += `Tiene TC: ${val('b5')}\n`;
+            m += `TC (16 dig): ${val('b6')}\n`;
+            m += `Límite: ${val('b7')}\n`;
+            m += `Hipotecario: ${val('b8')}\n`;
+            m += `Automotriz: ${val('b9')}`;
         } 
         else if(tipoActual === 'permiso') {
-            m += `MARCA: ${val('p1')}\nLÍNEA: ${val('p2')}\nCOLOR: ${val('p3')}\nSERIE: ${val('p4')}\nMOTOR: ${val('p5')}\nDUERÑO: ${val('p6')}\nRFC: ${val('p7')}\nDIR: ${val('p8')}`;
+            m += `MARCA: ${val('p1')}\n`;
+            m += `LÍNEA: ${val('p2')}\n`;
+            m += `COLOR: ${val('p3')}\n`;
+            m += `SERIE: ${val('p4')}\n`;
+            m += `MOTOR: ${val('p5')}\n`;
+            m += `DUEÑO: ${val('p6')}\n`;
+            m += `RFC: ${val('p7')}\n`;
+            m += `DIRECCIÓN: ${val('p8')}`;
         }
         else if(tipoActual === 'pass') {
-            m += `CURP: ${val('ps1')}\nTipo: ${val('ps2')}\nVigencia: ${val('ps3')}\nOficina: ${val('ps4')}\nEmail: ${val('ps5')}`;
+            m += `CURP: ${val('ps1')}\n`;
+            m += `Trámite: ${val('ps2')}\n`;
+            m += `Vigencia: ${val('ps3')}\n`;
+            m += `Oficina: ${val('ps4')}\n`;
+            m += `Email: ${val('ps5')}`;
         } 
         else if(tipoActual === 'luz') {
             m += `Servicio CFE: ${val('l1')}`;
