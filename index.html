@@ -260,14 +260,28 @@
             document.getElementById('contenidoPrincipal').style.display = 'block';
             document.getElementById('statusUsuario').innerText = `Hola, ${user.email}`;
             
-            db.collection('usuarios').doc(user.uid).onSnapshot(doc => {
+            // Registra o actualiza el documento agregando tanto el campo email como creditos
+            const userRef = db.collection('usuarios').doc(user.uid);
+            
+            userRef.get().then(doc => {
+                if (!doc.exists) {
+                    userRef.set({
+                        email: user.email,
+                        creditos: 0
+                    });
+                } else {
+                    userRef.set({
+                        email: user.email
+                    }, { merge: true });
+                }
+            });
+
+            // Escuchar cambios en tiempo real en los créditos
+            userRef.onSnapshot(doc => {
                 if(doc.exists) {
                     saldoActual = doc.data().creditos || 0;
-                } else {
-                    db.collection('usuarios').doc(user.uid).set({ creditos: 0 });
-                    saldoActual = 0;
+                    document.getElementById('saldoCreditos').innerText = `$${saldoActual}`;
                 }
-                document.getElementById('saldoCreditos').innerText = `$${saldoActual}`;
             });
         } else {
             usuarioActual = null;
