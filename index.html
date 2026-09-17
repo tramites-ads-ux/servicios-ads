@@ -47,7 +47,7 @@
             backdrop-filter: blur(5px);
         }
 
-        .box-acceso h2 { color: var(--amarillo); margin-top: 0; font-size: 18px; border: none; }
+        .box-acceso h2 { color: var(--amarillo); margin-top: 0; font-size: 18px; border: none; text-align: center; }
         .box-acceso label { display: block; margin-top: 10px; font-size: 12px; color: #cbd5e0; }
         .box-acceso input { width: 100%; padding: 10px; margin-top: 4px; border-radius: 5px; border: none; box-sizing: border-box; font-size: 13px; }
         
@@ -122,7 +122,7 @@
     <p style="margin-bottom:20px; color:#cbd5e0;">Regístrate o Inicia Sesión para ver el catálogo y tus créditos</p>
     
     <div class="box-acceso">
-        <h2 text-align:center;">ACCESO A CLIENTES</h2>
+        <h2>ACCESO A CLIENTES</h2>
         <label>Correo Electrónico:</label>
         <input type="email" id="authEmail" placeholder="correo@ejemplo.com">
         <label>Contraseña:</label>
@@ -213,14 +213,14 @@
 </div>
 
 <script>
-    // Configuración de Firebase
+    // Configuración de Firebase integrada con tus credenciales reales
     const firebaseConfig = {
-        apiKey: "TU_API_KEY_AQUI",
-        authDomain: "TU_PROYECTO.firebaseapp.com",
-        projectId: "TU_PROYECTO_ID",
-        storageBucket: "TU_PROYECTO.appspot.com",
-        messagingSenderId: "NUMERO",
-        appId: "ID_APP"
+        apiKey: "AIzaSyAXLznJZGSL5QjQ7ZCWm-LHDTLaSXS2A1A",
+        authDomain: "tramites-y-servicios-ads.firebaseapp.com",
+        projectId: "tramites-y-servicios-ads",
+        storageBucket: "tramites-y-servicios-ads.firebasestorage.app",
+        messagingSenderId: "153799387586",
+        appId: "1:153799387586:web:8e1694b297ea3c82e6ef29"
     };
 
     firebase.initializeApp(firebaseConfig);
