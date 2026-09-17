@@ -54,7 +54,7 @@
         .btn-acceso { background: var(--verde-ws); color: white; border: none; padding: 12px; border-radius: 6px; width: 100%; margin-top: 15px; font-weight: bold; cursor: pointer; font-size: 13px; }
         .btn-secundario { background: #2980b9; margin-top: 8px; }
 
-        /* CONTENIDO PRINCIPAL (OCULTO POR DEFECTO HASTA INICIAR SESIÓN) */
+        /* CONTENIDO PRINCIPAL */
         #contenidoPrincipal { display: none; }
 
         header { 
@@ -67,10 +67,12 @@
         .user-bar {
             display: flex; justify-content: space-between; align-items: center;
             background: #002244; color: white; padding: 6px 15px; font-size: 12px;
+            flex-wrap: wrap; gap: 8px;
         }
-        .user-info { display: flex; align-items: center; gap: 10px; }
+        .user-info { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
         .creditos-badge { background: var(--amarillo); color: black; font-weight: bold; padding: 2px 8px; border-radius: 12px; }
         .btn-auth { background: #e74c3c; color: white; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 11px; }
+        .btn-recargar { background: var(--verde-ws); color: white; border: none; padding: 4px 10px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 11px; }
 
         .banner-pago {
             max-width: 900px; margin: 8px auto; 
@@ -133,12 +135,13 @@
     </div>
 </div>
 
-<!-- CONTENIDO DE TRÁMITES (SE MUESTRA TRAS INICIAR SESIÓN) -->
+<!-- CONTENIDO DE TRÁMITES -->
 <div id="contenidoPrincipal">
     <div class="user-bar">
         <div id="statusUsuario">Cargando usuario...</div>
         <div class="user-info">
             <span>Créditos: <span id="saldoCreditos" class="creditos-badge">$0</span></span>
+            <button class="btn-recargar" onclick="abrirModalRecarga()">💳 RECARGAR</button>
             <button class="btn-auth" onclick="auth.signOut()">Cerrar Sesión</button>
         </div>
     </div>
@@ -212,8 +215,25 @@
     </div>
 </div>
 
+<!-- Modal para Recargas -->
+<div id="modalRecarga" class="modal-overlay">
+    <div class="modal-box">
+        <h3 style="text-align:center; color: var(--amarillo); margin:0 0 15px 0;">SOLICITAR RECARGA DE CRÉDITOS</h3>
+        <div class="form-datos">
+            <label>Monto depositado ($):</label>
+            <input type="number" id="recMonto" placeholder="Ej: 100">
+            <label>Fecha y Hora del Depósito:</label>
+            <input type="datetime-local" id="recFechaHora">
+            <label>Folio / Autorización / Referencia (Opcional):</label>
+            <input type="text" id="recFolio" placeholder="Ej: 123456">
+        </div>
+        <button class="btn-confirmar" onclick="enviarRecargaWS()">REPORTAR PAGO A WHATSAPP</button>
+        <button class="btn-cancelar" onclick="cerrarRecarga()">CANCELAR Y REGRESAR</button>
+    </div>
+</div>
+
 <script>
-    // Configuración de Firebase integrada con tus credenciales reales
+    // Configuración de Firebase
     const firebaseConfig = {
         apiKey: "AIzaSyAXLznJZGSL5QjQ7ZCWm-LHDTLaSXS2A1A",
         authDomain: "tramites-y-servicios-ads.firebaseapp.com",
@@ -233,7 +253,6 @@
     let nombreActual = "";
     let precioActual = 0;
 
-    // Detectar si el usuario está logueado para mostrar o no los trámites
     auth.onAuthStateChanged(user => {
         if (user) {
             usuarioActual = user;
@@ -241,7 +260,6 @@
             document.getElementById('contenidoPrincipal').style.display = 'block';
             document.getElementById('statusUsuario').innerText = `Hola, ${user.email}`;
             
-            // Cargar créditos del usuario
             db.collection('usuarios').doc(user.uid).onSnapshot(doc => {
                 if(doc.exists) {
                     saldoActual = doc.data().creditos || 0;
@@ -285,6 +303,31 @@
     }
 
     function cerrar() { document.getElementById('modalTramite').style.display = 'none'; }
+    function cerrarRecarga() { document.getElementById('modalRecarga').style.display = 'none'; }
+
+    function abrirModalRecarga() {
+        document.getElementById('modalRecarga').style.display = 'flex';
+    }
+
+    function enviarRecargaWS() {
+        const monto = document.getElementById('recMonto').value;
+        const fechaHora = document.getElementById('recFechaHora').value;
+        const folio = document.getElementById('recFolio').value || 'Sin folio especificado';
+
+        if (!monto || !fechaHora) {
+            alert('Por favor completa el monto y la fecha/hora del depósito.');
+            return;
+        }
+
+        let m = `*SOLICITUD DE RECARGA DE SALDO*\n`;
+        m += `*USUARIO:* ${usuarioActual.email}\n`;
+        m += `*MONTO DEPOSITADO:* $${monto}\n`;
+        m += `*FECHA Y HORA:* ${fechaHora.replace('T', ' ')}\n`;
+        m += `*FOLIO / REF:* ${folio}`;
+
+        window.open("https://wa.me/522382035958?text=" + encodeURIComponent(m));
+        cerrarRecarga();
+    }
 
     function abrirModal(tipo, nombre, precio) {
         tipoActual = tipo; nombreActual = nombre; precioActual = precio;
@@ -387,7 +430,6 @@
             m += `DATO: ${val('g1') || val('c1') || val('i1') || val('l1') || val('n1')}`;
         }
         
-        // Descuenta el monto en Firebase
         const nuevoSaldo = saldoActual - precioActual;
         db.collection('usuarios').doc(usuarioActual.uid).update({ creditos: nuevoSaldo })
             .then(() => {
