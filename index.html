@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ADS Servicios Digitales</title>
+    
+    <!-- SDKs de Firebase para Login y Créditos -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
     <style>
         :root {
             --azul-oscuro: #003366;
@@ -17,11 +23,54 @@
 
         body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; margin: 0; padding: 0; font-size: 14px; }
         
+        /* PANTALLA DE REGISTRO / LOGIN OBLIGATORIA */
+        #pantallaAcceso {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--azul-oscuro), #001122);
+            color: white;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .box-acceso {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 25px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 380px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .box-acceso h2 { color: var(--amarillo); margin-top: 0; font-size: 18px; border: none; }
+        .box-acceso label { display: block; margin-top: 10px; font-size: 12px; color: #cbd5e0; }
+        .box-acceso input { width: 100%; padding: 10px; margin-top: 4px; border-radius: 5px; border: none; box-sizing: border-box; font-size: 13px; }
+        
+        .btn-acceso { background: var(--verde-ws); color: white; border: none; padding: 12px; border-radius: 6px; width: 100%; margin-top: 15px; font-weight: bold; cursor: pointer; font-size: 13px; }
+        .btn-secundario { background: #2980b9; margin-top: 8px; }
+
+        /* CONTENIDO PRINCIPAL (OCULTO POR DEFECTO HASTA INICIAR SESIÓN) */
+        #contenidoPrincipal { display: none; }
+
         header { 
             background: linear-gradient(135deg, var(--azul-oscuro), #00509d); 
             color: white; text-align: center; padding: 12px; 
+            position: relative;
         }
         header h1 { margin: 0; font-size: 18px; letter-spacing: 1px; }
+
+        .user-bar {
+            display: flex; justify-content: space-between; align-items: center;
+            background: #002244; color: white; padding: 6px 15px; font-size: 12px;
+        }
+        .user-info { display: flex; align-items: center; gap: 10px; }
+        .creditos-badge { background: var(--amarillo); color: black; font-weight: bold; padding: 2px 8px; border-radius: 12px; }
+        .btn-auth { background: #e74c3c; color: white; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 11px; }
 
         .banner-pago {
             max-width: 900px; margin: 8px auto; 
@@ -67,64 +116,93 @@
 </head>
 <body>
 
-<header>
-    <h1>ADS SERVICIOS DIGITALES</h1>
-</header>
-
-<div class="banner-pago">
-    <div class="pago-info"><strong>BANCO AZTECA</strong><br><span>Andres Garcia</span></div>
-    <div class="pago-numero">5263 5401 6196 2200</div>
-    <button class="btn-copiar-mini" onclick="navigator.clipboard.writeText('5263540161962200'); alert('Copiado')">COPIAR</button>
-</div>
-
-<div class="container">
-    <div class="contenedor-busqueda">
-        <input type="text" id="buscador" onkeyup="buscar()" placeholder="🔍 Buscar entre los 26 trámites...">
-    </div>
-
-    <h2>📄 Trámites y Documentos</h2>
-    <div class="grid-servicios">
-        <div class="card"><div class="img-contenedor"><img src="acta-nacimiento.png"></div><h3>Acta de Nacimiento</h3><div class="precio-txt">$45</div><button class="btn-ws" onclick="abrirModal('gen', 'Acta de Nacimiento')">SOLICITAR</button></div>
-        <div class="card"><div class="img-contenedor"><img src="matrimonio.png"></div><h3>Acta de Matrimonio</h3><div class="precio-txt">$45</div><button class="btn-ws" onclick="abrirModal('gen', 'Acta de Matrimonio')">SOLICITAR</button></div>
-        <div class="card"><div class="img-contenedor"><img src="defuncion.png"></div><h3>Acta de Defunción</h3><div class="precio-txt">$45</div><button class="btn-ws" onclick="abrirModal('gen', 'Acta de Defunción')">SOLICITAR</button></div>
-        <div class="card"><div class="img-contenedor"><img src="divorcio.png"></div><h3>Acta de Divorcio</h3><div class="precio-txt">$45</div><button class="btn-ws" onclick="abrirModal('gen', 'Acta de Divorcio')">SOLICITAR</button></div>
-        <div class="card"><div class="img-contenedor"><img src="buro.png"></div><h3>Buró de Crédito</h3><div class="precio-txt">$96</div><button class="btn-ws" onclick="abrirModal('buro', 'Buró de Crédito')">SOLICITAR</button></div>
-        <div class="card"><div class="img-contenedor"><img src="pasaporte.png"></div><h3>Cita Pasaporte</h3><div class="precio-txt">$400</div><button class="btn-ws" onclick="abrirModal('pass', 'Cita Pasaporte')">SOLICITAR</button></div>
-        <div class="card"><div class="img-contenedor"><img src="rfc.png"></div><h3>Constancia RFC</h3><div class="precio-txt">$180</div><button class="btn-ws" onclick="abrirModal('gen', 'Constancia RFC')">SOLICITAR</button></div>
-        <div class="card"><div class="img-contenedor"><img src="curp.jpg"></div><h3>CURP Actualizada</h3><div class="precio-txt">$5</div><button class="btn-ws" onclick="abrirModal('gen', 'CURP Actualizada')">SOLICITAR</button></div>
-        <div class="card" style="border-top-color:var(--naranja)"><div class="img-contenedor"><img src="permiso1.jpeg"></div><h3>Permiso Guerrero</h3><div class="precio-txt">$80</div><button class="btn-ws" onclick="abrirModal('permiso', 'Permiso Guerrero')">SOLICITAR</button></div>
-    </div>
-
-    <h2 style="border-bottom-color: var(--infonavit);">🏠 Infonavit</h2>
-    <div class="grid-servicios">
-        <div class="card" style="border-top-color:var(--infonavit)"><div class="img-contenedor"><img src="infonavit.png"></div><h3>Aviso de Retención</h3><div class="precio-txt">$100</div><button class="btn-ws" onclick="abrirModal('info', 'Aviso de Retención')">SOLICITAR</button></div>
-        <div class="card" style="border-top-color:var(--infonavit)"><div class="img-contenedor"><img src="infonavit.png"></div><h3>Aviso de Suspensión</h3><div class="precio-txt">$100</div><button class="btn-ws" onclick="abrirModal('info', 'Aviso de Suspensión')">SOLICITAR</button></div>
-        <div class="card" style="border-top-color:var(--infonavit)"><div class="img-contenedor"><img src="infonavit.png"></div><h3>Saldos y Movimientos</h3><div class="precio-txt">$100</div><button class="btn-ws" onclick="abrirModal('info', 'Saldos y Movimientos')">SOLICITAR</button></div>
-        <div class="card" style="border-top-color:var(--infonavit)"><div class="img-contenedor"><img src="infonavit.png"></div><h3>Estado de Cuenta</h3><div class="precio-txt">$100</div><button class="btn-ws" onclick="abrirModal('info', 'Estado de Cuenta')">SOLICITAR</button></div>
-        <div class="card" style="border-top-color:var(--infonavit)"><div class="img-contenedor"><img src="infonavit.png"></div><h3>Histórico de Crédito</h3><div class="precio-txt">$100</div><button class="btn-ws" onclick="abrirModal('info', 'Histórico de Crédito')">SOLICITAR</button></div>
-        <div class="card" style="border-top-color:var(--infonavit)"><div class="img-contenedor"><img src="infonavit.png"></div><h3>Restablecer Contraseña</h3><div class="precio-txt">$100</div><button class="btn-ws" onclick="abrirModal('info', 'Restablecer Contraseña')">SOLICITAR</button></div>
-    </div>
-
-    <h2 style="border-bottom-color: var(--imss);">🏥 IMSS y CFE</h2>
-    <div class="grid-servicios">
-        <div class="card" style="border-top-color:var(--imss)"><div class="img-contenedor"><img src="nss.png"></div><h3>NSS (Número Seguro)</h3><div class="precio-txt">$10</div><button class="btn-ws" onclick="abrirModal('gen', 'NSS')">SOLICITAR</button></div>
-        <div class="card" style="border-top-color:var(--imss)"><div class="img-contenedor"><img src="semanas cotizadas.png"></div><h3>Semanas Cotizadas</h3><div class="precio-txt">$45</div><button class="btn-ws" onclick="abrirModal('nss_b', 'Semanas Cotizadas')">SOLICITAR</button></div>
-        <div class="card" style="border-top-color:var(--imss)"><div class="img-contenedor"><img src="vigencia de derechos.jpg"></div><h3>Vigencia de Derechos</h3><div class="precio-txt">$10</div><button class="btn-ws" onclick="abrirModal('nss_b', 'Vigencia de Derechos')">SOLICITAR</button></div>
-        <div class="card" style="border-top-color:var(--imss)"><div class="img-contenedor"><img src="no derechohabiente.jpg"></div><h3>No Derechohabiencia</h3><div class="precio-txt">$15</div><button class="btn-ws" onclick="abrirModal('gen', 'No Derechohabiencia')">SOLICITAR</button></div>
-        <div class="card" style="border-top-color:var(--imss)"><div class="img-contenedor"><img src="cartilla.jpeg"></div><h3>Cartilla IMSS</h3><div class="precio-txt">$20</div><button class="btn-ws" onclick="abrirModal('gen', 'Cartilla IMSS')">SOLICITAR</button></div>
-        <div class="card" style="border-top-color:#f1c40f"><div class="img-contenedor"><img src="cfe.png"></div><h3>Recibo CFE</h3><div class="precio-txt">$10</div><button class="btn-ws" onclick="abrirModal('luz', 'Recibo CFE')">SOLICITAR</button></div>
-    </div>
-
-    <h2 style="border-bottom-color: #6c5ce7;">📺 Streaming</h2>
-    <div class="grid-servicios">
-        <div class="card" style="border-top-color:#6c5ce7"><div class="img-contenedor"><img src="netflix.jpg"></div><h3>Netflix</h3><div class="precio-txt">$80</div><button class="btn-ws" onclick="abrirModal('cliente', 'Netflix')">SOLICITAR</button></div>
-        <div class="card" style="border-top-color:#6c5ce7"><div class="img-contenedor"><img src="disney.jpg"></div><h3>Disney+</h3><div class="precio-txt">$50</div><button class="btn-ws" onclick="abrirModal('cliente', 'Disney+')">SOLICITAR</button></div>
-        <div class="card" style="border-top-color:#6c5ce7"><div class="img-contenedor"><img src="max.jpg"></div><h3>HBO Max</h3><div class="precio-txt">$50</div><button class="btn-ws" onclick="abrirModal('cliente', 'HBO Max')">SOLICITAR</button></div>
-        <div class="card" style="border-top-color:#6c5ce7"><div class="img-contenedor"><img src="prime.png"></div><h3>Amazon Prime</h3><div class="precio-txt">$50</div><button class="btn-ws" onclick="abrirModal('cliente', 'Amazon Prime')">SOLICITAR</button></div>
-        <div class="card" style="border-top-color:#6c5ce7"><div class="img-contenedor"><img src="vix.png"></div><h3>VIX Premium</h3><div class="precio-txt">$50</div><button class="btn-ws" onclick="abrirModal('cliente', 'VIX')">SOLICITAR</button></div>
+<!-- PANTALLA INICIAL DE REGISTRO / ACCESO -->
+<div id="pantallaAcceso">
+    <h1 style="margin-bottom:5px;">ADS SERVICIOS DIGITALES</h1>
+    <p style="margin-bottom:20px; color:#cbd5e0;">Regístrate o Inicia Sesión para ver el catálogo y tus créditos</p>
+    
+    <div class="box-acceso">
+        <h2 text-align:center;">ACCESO A CLIENTES</h2>
+        <label>Correo Electrónico:</label>
+        <input type="email" id="authEmail" placeholder="correo@ejemplo.com">
+        <label>Contraseña:</label>
+        <input type="password" id="authPassword" placeholder="******">
+        
+        <button class="btn-acceso" onclick="login()">INICIAR SESIÓN</button>
+        <button class="btn-acceso btn-secundario" onclick="registro()">CREAR CUENTA</button>
     </div>
 </div>
 
+<!-- CONTENIDO DE TRÁMITES (SE MUESTRA TRAS INICIAR SESIÓN) -->
+<div id="contenidoPrincipal">
+    <div class="user-bar">
+        <div id="statusUsuario">Cargando usuario...</div>
+        <div class="user-info">
+            <span>Créditos: <span id="saldoCreditos" class="creditos-badge">$0</span></span>
+            <button class="btn-auth" onclick="auth.signOut()">Cerrar Sesión</button>
+        </div>
+    </div>
+
+    <header>
+        <h1>ADS SERVICIOS DIGITALES</h1>
+    </header>
+
+    <div class="banner-pago">
+        <div class="pago-info"><strong>BANCO AZTECA</strong><br><span>Andres Garcia</span></div>
+        <div class="pago-numero">5263 5401 6196 2200</div>
+        <button class="btn-copiar-mini" onclick="navigator.clipboard.writeText('5263540161962200'); alert('Copiado')">COPIAR</button>
+    </div>
+
+    <div class="container">
+        <div class="contenedor-busqueda">
+            <input type="text" id="buscador" onkeyup="buscar()" placeholder="🔍 Buscar trámite...">
+        </div>
+
+        <h2>📄 Trámites y Documentos</h2>
+        <div class="grid-servicios">
+            <div class="card"><div class="img-contenedor"><img src="acta-nacimiento.png"></div><h3>Acta de Nacimiento</h3><div class="precio-txt">$45</div><button class="btn-ws" onclick="abrirModal('acta', 'Acta de Nacimiento', 45)">SOLICITAR</button></div>
+            <div class="card"><div class="img-contenedor"><img src="matrimonio.png"></div><h3>Acta de Matrimonio</h3><div class="precio-txt">$45</div><button class="btn-ws" onclick="abrirModal('acta', 'Acta de Matrimonio', 45)">SOLICITAR</button></div>
+            <div class="card"><div class="img-contenedor"><img src="defuncion.png"></div><h3>Acta de Defunción</h3><div class="precio-txt">$45</div><button class="btn-ws" onclick="abrirModal('acta', 'Acta de Defunción', 45)">SOLICITAR</button></div>
+            <div class="card"><div class="img-contenedor"><img src="divorcio.png"></div><h3>Acta de Divorcio</h3><div class="precio-txt">$45</div><button class="btn-ws" onclick="abrirModal('acta', 'Acta de Divorcio', 45)">SOLICITAR</button></div>
+            <div class="card"><div class="img-contenedor"><img src="buro.png"></div><h3>Buró de Crédito</h3><div class="precio-txt">$60</div><button class="btn-ws" onclick="abrirModal('buro', 'Buró de Crédito', 60)">SOLICITAR</button></div>
+            <div class="card"><div class="img-contenedor"><img src="pasaporte.png"></div><h3>Cita Pasaporte</h3><div class="precio-txt">$150</div><button class="btn-ws" onclick="abrirModal('pass', 'Cita Pasaporte', 150)">SOLICITAR</button></div>
+            <div class="card"><div class="img-contenedor"><img src="rfc.png"></div><h3>Constancia RFC</h3><div class="precio-txt">$180</div><button class="btn-ws" onclick="abrirModal('gen', 'Constancia RFC', 180)">SOLICITAR</button></div>
+            <div class="card"><div class="img-contenedor"><img src="curp.jpg"></div><h3>CURP Actualizada</h3><div class="precio-txt">$5</div><button class="btn-ws" onclick="abrirModal('gen', 'CURP Actualizada', 5)">SOLICITAR</button></div>
+            <div class="card" style="border-top-color:var(--naranja)"><div class="img-contenedor"><img src="permiso1.jpeg"></div><h3>Permiso Guerrero</h3><div class="precio-txt">$80</div><button class="btn-ws" onclick="abrirModal('permiso', 'Permiso Guerrero', 80)">SOLICITAR</button></div>
+        </div>
+
+        <h2 style="border-bottom-color: var(--infonavit);">🏠 Infonavit</h2>
+        <div class="grid-servicios">
+            <div class="card" style="border-top-color:var(--infonavit)"><div class="img-contenedor"><img src="infonavit.png"></div><h3>Aviso de Retención</h3><div class="precio-txt">$100</div><button class="btn-ws" onclick="abrirModal('info', 'Aviso de Retención', 100)">SOLICITAR</button></div>
+            <div class="card" style="border-top-color:var(--infonavit)"><div class="img-contenedor"><img src="infonavit.png"></div><h3>Aviso de Suspensión</h3><div class="precio-txt">$100</div><button class="btn-ws" onclick="abrirModal('info', 'Aviso de Suspensión', 100)">SOLICITAR</button></div>
+            <div class="card" style="border-top-color:var(--infonavit)"><div class="img-contenedor"><img src="infonavit.png"></div><h3>Saldos y Movimientos</h3><div class="precio-txt">$100</div><button class="btn-ws" onclick="abrirModal('info', 'Saldos y Movimientos', 100)">SOLICITAR</button></div>
+            <div class="card" style="border-top-color:var(--infonavit)"><div class="img-contenedor"><img src="infonavit.png"></div><h3>Estado de Cuenta</h3><div class="precio-txt">$100</div><button class="btn-ws" onclick="abrirModal('info', 'Estado de Cuenta', 100)">SOLICITAR</button></div>
+            <div class="card" style="border-top-color:var(--infonavit)"><div class="img-contenedor"><img src="infonavit.png"></div><h3>Histórico de Crédito</h3><div class="precio-txt">$100</div><button class="btn-ws" onclick="abrirModal('info', 'Histórico de Crédito', 100)">SOLICITAR</button></div>
+            <div class="card" style="border-top-color:var(--infonavit)"><div class="img-contenedor"><img src="infonavit.png"></div><h3>Restablecer Contraseña</h3><div class="precio-txt">$100</div><button class="btn-ws" onclick="abrirModal('info', 'Restablecer Contraseña', 100)">SOLICITAR</button></div>
+        </div>
+
+        <h2 style="border-bottom-color: var(--imss);">🏥 IMSS y CFE</h2>
+        <div class="grid-servicios">
+            <div class="card" style="border-top-color:var(--imss)"><div class="img-contenedor"><img src="nss.png"></div><h3>NSS (Número Seguro)</h3><div class="precio-txt">$20</div><button class="btn-ws" onclick="abrirModal('gen', 'NSS', 20)">SOLICITAR</button></div>
+            <div class="card" style="border-top-color:var(--imss)"><div class="img-contenedor"><img src="semanas cotizadas.png"></div><h3>Semanas Cotizadas</h3><div class="precio-txt">$20</div><button class="btn-ws" onclick="abrirModal('nss_b', 'Semanas Cotizadas', 20)">SOLICITAR</button></div>
+            <div class="card" style="border-top-color:var(--imss)"><div class="img-contenedor"><img src="vigencia de derechos.jpg"></div><h3>Vigencia de Derechos</h3><div class="precio-txt">$20</div><button class="btn-ws" onclick="abrirModal('nss_b', 'Vigencia de Derechos', 20)">SOLICITAR</button></div>
+            <div class="card" style="border-top-color:var(--imss)"><div class="img-contenedor"><img src="no derechohabiente.jpg"></div><h3>No Derechohabiencia</h3><div class="precio-txt">$15</div><button class="btn-ws" onclick="abrirModal('gen', 'No Derechohabiencia', 15)">SOLICITAR</button></div>
+            <div class="card" style="border-top-color:var(--imss)"><div class="img-contenedor"><img src="cartilla.jpeg"></div><h3>Cartilla IMSS</h3><div class="precio-txt">$20</div><button class="btn-ws" onclick="abrirModal('gen', 'Cartilla IMSS', 20)">SOLICITAR</button></div>
+            <div class="card" style="border-top-color:#f1c40f"><div class="img-contenedor"><img src="cfe.png"></div><h3>Recibo CFE</h3><div class="precio-txt">$5</div><button class="btn-ws" onclick="abrirModal('luz', 'Recibo CFE', 5)">SOLICITAR</button></div>
+        </div>
+
+        <h2 style="border-bottom-color: #6c5ce7;">📺 Streaming</h2>
+        <div class="grid-servicios">
+            <div class="card" style="border-top-color:#6c5ce7"><div class="img-contenedor"><img src="netflix.jpg"></div><h3>Netflix</h3><div class="precio-txt">$80</div><button class="btn-ws" onclick="abrirModal('cliente', 'Netflix', 80)">SOLICITAR</button></div>
+            <div class="card" style="border-top-color:#6c5ce7"><div class="img-contenedor"><img src="disney.jpg"></div><h3>Disney+</h3><div class="precio-txt">$50</div><button class="btn-ws" onclick="abrirModal('cliente', 'Disney+', 50)">SOLICITAR</button></div>
+            <div class="card" style="border-top-color:#6c5ce7"><div class="img-contenedor"><img src="max.jpg"></div><h3>HBO Max</h3><div class="precio-txt">$50</div><button class="btn-ws" onclick="abrirModal('cliente', 'HBO Max', 50)">SOLICITAR</button></div>
+            <div class="card" style="border-top-color:#6c5ce7"><div class="img-contenedor"><img src="prime.png"></div><h3>Amazon Prime</h3><div class="precio-txt">$50</div><button class="btn-ws" onclick="abrirModal('cliente', 'Amazon Prime', 50)">SOLICITAR</button></div>
+            <div class="card" style="border-top-color:#6c5ce7"><div class="img-contenedor"><img src="vix.png"></div><h3>VIX Premium</h3><div class="precio-txt">$50</div><button class="btn-ws" onclick="abrirModal('cliente', 'VIX', 50)">SOLICITAR</button></div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Trámites -->
 <div id="modalTramite" class="modal-overlay">
     <div class="modal-box">
         <h3 id="modalTitulo" style="text-align:center; color: var(--amarillo); margin:0 0 15px 0;"></h3>
@@ -135,8 +213,71 @@
 </div>
 
 <script>
-    let tipoActual = ""; let nombreActual = "";
-    
+    // Configuración de Firebase
+    const firebaseConfig = {
+        apiKey: "TU_API_KEY_AQUI",
+        authDomain: "TU_PROYECTO.firebaseapp.com",
+        projectId: "TU_PROYECTO_ID",
+        storageBucket: "TU_PROYECTO.appspot.com",
+        messagingSenderId: "NUMERO",
+        appId: "ID_APP"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    let usuarioActual = null;
+    let saldoActual = 0;
+    let tipoActual = ""; 
+    let nombreActual = "";
+    let precioActual = 0;
+
+    // Detectar si el usuario está logueado para mostrar o no los trámites
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            usuarioActual = user;
+            document.getElementById('pantallaAcceso').style.display = 'none';
+            document.getElementById('contenidoPrincipal').style.display = 'block';
+            document.getElementById('statusUsuario').innerText = `Hola, ${user.email}`;
+            
+            // Cargar créditos del usuario
+            db.collection('usuarios').doc(user.uid).onSnapshot(doc => {
+                if(doc.exists) {
+                    saldoActual = doc.data().creditos || 0;
+                } else {
+                    db.collection('usuarios').doc(user.uid).set({ creditos: 0 });
+                    saldoActual = 0;
+                }
+                document.getElementById('saldoCreditos').innerText = `$${saldoActual}`;
+            });
+        } else {
+            usuarioActual = null;
+            saldoActual = 0;
+            document.getElementById('pantallaAcceso').style.display = 'flex';
+            document.getElementById('contenidoPrincipal').style.display = 'none';
+        }
+    });
+
+    function login() {
+        const e = document.getElementById('authEmail').value;
+        const p = document.getElementById('authPassword').value;
+        if(!e || !p) return alert("Por favor ingresa tu correo y contraseña.");
+        
+        auth.signInWithEmailAndPassword(e, p)
+            .catch(err => alert("Error al ingresar: " + err.message));
+    }
+
+    function registro() {
+        const e = document.getElementById('authEmail').value;
+        const p = document.getElementById('authPassword').value;
+        if(!e || !p) return alert("Por favor ingresa un correo y contraseña para registrarte.");
+        
+        auth.createUserWithEmailAndPassword(e, p)
+            .then(() => alert("Cuenta creada exitosamente"))
+            .catch(err => alert("Error al registrarte: " + err.message));
+    }
+
     function buscar() {
         let q = document.getElementById('buscador').value.toLowerCase();
         let cards = document.getElementsByClassName('card');
@@ -145,40 +286,47 @@
 
     function cerrar() { document.getElementById('modalTramite').style.display = 'none'; }
 
-    function abrirModal(tipo, nombre) {
-        tipoActual = tipo; nombreActual = nombre;
+    function abrirModal(tipo, nombre, precio) {
+        tipoActual = tipo; nombreActual = nombre; precioActual = precio;
         const cont = document.getElementById('contenedorCampos');
-        document.getElementById('modalTitulo').innerText = nombre.toUpperCase();
+        document.getElementById('modalTitulo').innerText = `${nombre.toUpperCase()} ($${precio})`;
         cont.innerHTML = "";
         document.getElementById('modalTramite').style.display = 'flex';
 
-        if(tipo === 'buro') {
+        if(tipo === 'acta') {
+            cont.innerHTML = `
+                <label>Nombre Completo:</label><input type="text" id="a1">
+                <label>Fecha de Nacimiento:</label><input type="date" id="a2">
+                <label>Estado de Registro:</label><input type="text" id="a3">
+                <label>CURP (Para envío automático):</label><input type="text" id="a4" maxlength="18">
+            `;
+        } else if(tipo === 'buro') {
             cont.innerHTML = `
                 <label>Nombre Completo:</label><input type="text" id="b1">
                 <label>RFC:</label><input type="text" id="b2">
                 <label>CURP:</label><input type="text" id="b3">
-                <label>Dirección Completa:</label><textarea id="b4" rows="2"></textarea>
-                <label>¿Tienes Tarjeta de Crédito?</label>
+                <label>Dirección:</label><textarea id="b4" rows="2"></textarea>
+                <label>¿Tiene Tarjeta de Crédito?</label>
                 <select id="b5" onchange="document.getElementById('sTC').style.display=(this.value=='Si'?'block':'none')">
                     <option value="No">No</option><option value="Si">Si</option>
                 </select>
                 <div id="sTC" class="cuadro-tc">
                     <label>Número de Tarjeta (16 dígitos):</label><input type="text" id="b6" maxlength="16">
-                    <label>Límite de Crédito:</label><input type="text" id="b7">
+                    <label>Límite:</label><input type="text" id="b7">
                 </div>
-                <label>¿Tienes Crédito Hipotecario?</label><select id="b8"><option>No</option><option>Si</option></select>
-                <label>¿Tienes Crédito Automotriz?</label><select id="b9"><option>No</option><option>Si</option></select>
+                <label>¿Crédito Hipotecario?</label><select id="b8"><option>No</option><option>Si</option></select>
+                <label>¿Crédito Automotriz?</label><select id="b9"><option>No</option><option>Si</option></select>
             `;
         } else if(tipo === 'permiso') {
             cont.innerHTML = `
                 <label>Marca:</label><input type="text" id="p1">
                 <label>Línea/Modelo:</label><input type="text" id="p2">
                 <label>Color:</label><input type="text" id="p3">
-                <label>Número de Serie (VIN):</label><input type="text" id="p4">
-                <label>Número de Motor:</label><input type="text" id="p5">
-                <label>Nombre del Propietario:</label><input type="text" id="p6">
-                <label>RFC Propietario:</label><input type="text" id="p7">
-                <label>Dirección Propietario:</label><textarea id="p8" rows="2"></textarea>
+                <label>Serie (VIN):</label><input type="text" id="p4">
+                <label>Motor:</label><input type="text" id="p5">
+                <label>Dueño:</label><input type="text" id="p6">
+                <label>RFC:</label><input type="text" id="p7">
+                <label>Dirección:</label><textarea id="p8" rows="2"></textarea>
             `;
         } else if(tipo === 'pass') {
             cont.innerHTML = `
@@ -202,57 +350,52 @@
     }
 
     function enviar() {
-        let m = "*SOLICITUD ADS:* " + nombreActual.toUpperCase() + "\n";
+        if (!usuarioActual) {
+            alert("Debes iniciar sesión para realizar solicitudes.");
+            return;
+        }
+
+        if (saldoActual < precioActual) {
+            alert(`Saldo insuficiente. Tu saldo es de $${saldoActual} y el trámite cuesta $${precioActual}. Por favor realiza una recarga.`);
+            return;
+        }
+
+        let m = "";
         const val = (id) => document.getElementById(id) ? document.getElementById(id).value : "";
 
-        if(tipoActual === 'buro') {
-            m += `Nombre: ${val('b1')}\n`;
-            m += `RFC: ${val('b2')}\n`;
-            m += `CURP: ${val('b3')}\n`;
-            m += `Dirección: ${val('b4')}\n`;
-            m += `Tiene TC: ${val('b5')}\n`;
-            m += `TC (16 dig): ${val('b6')}\n`;
-            m += `Límite: ${val('b7')}\n`;
-            m += `Hipotecario: ${val('b8')}\n`;
-            m += `Automotriz: ${val('b9')}`;
+        if(tipoActual === 'acta') {
+            m = `*COMANDO_ACTA*\n`;
+            m += `TRAMITE: ${nombreActual.toUpperCase()}\n`;
+            m += `CURP: ${val('a4').toUpperCase()}\n`;
+            m += `NOMBRE: ${val('a1').toUpperCase()}\n`;
+            m += `ESTADO: ${val('a3').toUpperCase()}`;
+        }
+        else if(tipoActual === 'buro') {
+            m = "*SOLICITUD ADS:* BURÓ\n";
+            m += `NOMBRE: ${val('b1')}\nRFC: ${val('b2')}\nCURP: ${val('b3')}\nDIR: ${val('b4')}\nTC: ${val('b5')}\nNUM-16: ${val('b6')}\nLIMITE: ${val('b7')}\nHIPO: ${val('b8')}\nAUTO: ${val('b9')}`;
         } 
         else if(tipoActual === 'permiso') {
-            m += `MARCA: ${val('p1')}\n`;
-            m += `LÍNEA: ${val('p2')}\n`;
-            m += `COLOR: ${val('p3')}\n`;
-            m += `SERIE: ${val('p4')}\n`;
-            m += `MOTOR: ${val('p5')}\n`;
-            m += `DUEÑO: ${val('p6')}\n`;
-            m += `RFC: ${val('p7')}\n`;
-            m += `DIRECCIÓN: ${val('p8')}`;
+            m = "*SOLICITUD ADS:* PERMISO\n";
+            m += `MARCA: ${val('p1')}\nLINEA: ${val('p2')}\nCOLOR: ${val('p3')}\nSERIE: ${val('p4')}\nMOTOR: ${val('p5')}\nDUEÑO: ${val('p6')}\nRFC: ${val('p7')}\nDIR: ${val('p8')}`;
         }
         else if(tipoActual === 'pass') {
-            m += `CURP: ${val('ps1')}\n`;
-            m += `Trámite: ${val('ps2')}\n`;
-            m += `Vigencia: ${val('ps3')}\n`;
-            m += `Oficina: ${val('ps4')}\n`;
-            m += `Email: ${val('ps5')}`;
+            m = "*SOLICITUD ADS:* PASAPORTE\n";
+            m += `CURP: ${val('ps1')}\nTRAMITE: ${val('ps2')}\nVIGENCIA: ${val('ps3')}\nSRE: ${val('ps4')}\nEMAIL: ${val('ps5')}`;
         } 
-        else if(tipoActual === 'luz') {
-            m += `Servicio CFE: ${val('l1')}`;
-        } 
-        else if(tipoActual === 'cliente') {
-            m += `Cliente: ${val('c1')}`;
-        } 
-        else if(tipoActual === 'info') {
-            m += `NSS: ${val('i1')}\nNombre: ${val('i3')}`;
-        }
-        else if(tipoActual === 'nss_b') {
-            m += `CURP: ${val('n1')}\nNSS: ${val('n2')}`;
-        }
         else {
-            m += `Dato: ${val('g1')}`;
+            m = "*SOLICITUD ADS:* " + nombreActual.toUpperCase() + "\n";
+            m += `DATO: ${val('g1') || val('c1') || val('i1') || val('l1') || val('n1')}`;
         }
         
-        window.open("https://wa.me/522382035958?text=" + encodeURIComponent(m + "\n\n(Envío comprobante de pago)"));
-        cerrar();
+        // Descuenta el monto en Firebase
+        const nuevoSaldo = saldoActual - precioActual;
+        db.collection('usuarios').doc(usuarioActual.uid).update({ creditos: nuevoSaldo })
+            .then(() => {
+                window.open("https://wa.me/522382035958?text=" + encodeURIComponent(m + `\n\n(Pagado con saldo del usuario: ${usuarioActual.email})`));
+                cerrar();
+            })
+            .catch(err => alert("Error al procesar el saldo: " + err.message));
     }
 </script>
 </body>
 </html>
-
